@@ -4,13 +4,71 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-21T20:19:02+08:00</updated>
+  <updated>2011-09-21T21:23:44+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
     
   </author>
 
+  
+  <entry>
+    <title>Interactive git rebase with reword &amp; fixup</title>
+    <link href="http://ngty.github.com/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/"/>
+    <updated>2011-09-21T20:32:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup</id>
+    <content type="html">&lt;p&gt;It is no secret that i&amp;#8217;m a fan of interactive git rebase. It gives me
+the power to clean up the numerous small intermediate commits that i
+did so frequently while in the course of completing a feature (or bugfix).
+In the process, i usually do quite abit of squashing, reshuffling &amp;amp;
+rewording, such that the eventual commits i push upstream are
+well-organized &amp;amp; each commit is meaningful to the rest of the team.&lt;/p&gt;
+
+&lt;p&gt;Usually i use &lt;code&gt;pick&lt;/code&gt; &amp;amp; &lt;code&gt;squash&lt;/code&gt; to achieve the compressing of different
+commits. Recently, my coworker showed me an alternative, which uses &lt;code&gt;reword&lt;/code&gt;
+&amp;amp; &lt;code&gt;fixup&lt;/code&gt;.  Here&amp;#8217;s how it can be done:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ git rebase -i &amp;lt;branch&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;Instead of doing:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;pick 6354612 WIP ~ monkey patched to fix bug#234.
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;squash 4de4f66 WIP ~ conform to recommended way of patching.
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;squash 3545b15 WIP ~ fixed incomplete removal of hackish patch.
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;squash 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;Do this:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;reword 6354612 WIP ~ monkey patched to fix bug#234.
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;fixup 4de4f66 WIP ~ conform to recommended way of patching.
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;fixup 3545b15 WIP ~ fixed incomplete removal of hackish patch.
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;fixup 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;Of course, the 2 approaches are different:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;reword&lt;/code&gt; &amp;amp; &lt;code&gt;fixup&lt;/code&gt;, u get to either keep the 1st commit message,
+or rephrase it&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pick&lt;/code&gt; &amp;amp; &lt;code&gt;squash&lt;/code&gt;, u have more choices ~ from keeping all of the
+various commit messages, to writing a brand new message&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;For me, i almost always want the effect of &lt;code&gt;reword&lt;/code&gt; &amp;amp; &lt;code&gt;fixup&lt;/code&gt;.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Module#attr_accessor &amp; friends</title>
