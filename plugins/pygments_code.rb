@@ -1,3 +1,6 @@
+require "rubypython"
+RubyPython.configure :python_exe => 'python2.7'
+
 require 'pygments'
 require 'fileutils'
 require 'digest/md5'
