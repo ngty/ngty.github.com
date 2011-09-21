@@ -53,8 +53,12 @@ t.cheat(:xl)
 puts t.size        # >> xl
 {% endcodeblock %}
 
-Besides improving the readability of ur code, `Module#attr_accessor` is also
-more performant than ur handcrafted accessors, here's a quick benchmark:
+Besides `Module#attr_accessor`, we also have `Module#attr_reader` &
+`Module#attr_writer`, each generating just the reader/writer that u need.
+
+Using the above accessor generators not only improve the readability of ur
+code, the generated accessors are also more performant. Here's a quick
+benchmark:
 
 {% codeblock lang:ruby %}
 class AA
@@ -84,9 +88,7 @@ end
 #>> 0.450000   0.000000   0.450000 (  0.456264)
 {% endcodeblock %}
 
-The difference is there, but isn't too much. But as the number of
-accessors involved increases, the difference becomes greater.
-
-Besides `Module#attr_accessor`, `Module` also has `#attr_reader` &
-`#attr_writer` as well, to generate only the reader/writer that u need.
+The difference is there, but it isn't too much for just a pair of accessors.
+It would be more significant as the number of accessors increases. Anyway,
+i'll leave it as an exercise for the reader.
 
