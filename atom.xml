@@ -1,15 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title>My Octopress Blog</title>
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2011-09-21T13:11:26+08:00</updated>
-  <id>http://yoursite.com/</id>
+  <title>ty&#8217;s engineering log</title>
+  <link href="http://ngty.github.com/atom.xml" rel="self"/>
+  <link href="http://ngty.github.com/"/>
+  <updated>2011-09-21T19:04:01+08:00</updated>
+  <id>http://ngty.github.com/</id>
   <author>
-    <name>Your Name</name>
+    <name>Ng Tze Yang</name>
     
   </author>
 
+  
+  <entry>
+    <title>Module#attr_accessor &amp; friends</title>
+    <link href="http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends/"/>
+    <updated>2011-09-20T23:55:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends</id>
+    <content type="html">&lt;p&gt;Have u ever find urself writing simple reader &amp;amp; writer like this:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;5&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;6&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;7&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;ruby&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thing&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;    &lt;span class=&quot;vi&quot;&gt;@size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;    &lt;span class=&quot;vi&quot;&gt;@size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;You should probably be using &lt;code&gt;Module#attr_accessor&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;5&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;6&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;ruby&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thing&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;kp&quot;&gt;attr_accessor&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Thing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:xl&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;gt;&amp;gt; xl&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;If u want to keep the writer private, while still having the reader as public,
+you can do the following:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;5&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;6&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;7&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;8&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;9&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;10&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;11&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;12&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;13&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;ruby&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thing&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;kp&quot;&gt;attr_accessor&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cheat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Thing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;c1&quot;&gt;#puts t.size = :xl # &amp;gt;&amp;gt; NoMethodError&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cheat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:xl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# &amp;gt;&amp;gt; xl&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;Besides improving the readability of ur code, &lt;code&gt;Module#attr_accessor&lt;/code&gt; is also
+more performant than ur handcrafted accessors, here&amp;#8217;s a quick benchmark:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;5&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;6&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;7&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;8&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;9&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;10&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;11&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;12&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;13&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;14&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;15&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;16&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;17&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;18&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;19&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;20&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;21&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;22&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;23&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;24&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;25&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8217;ruby&#8217;&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AA&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;kp&quot;&gt;attr_accessor&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BB&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@size&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;benchmark&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;AA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;klass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;      &lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;        &lt;span class=&quot;n&quot;&gt;aa&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;klass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;        &lt;span class=&quot;n&quot;&gt;aa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;        &lt;span class=&quot;n&quot;&gt;aa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;c1&quot;&gt;#&amp;gt;&amp;gt; user     system      total        real&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;c1&quot;&gt;#&amp;gt;&amp;gt; 0.410000   0.000000   0.410000 (  0.412785)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;&lt;span class=&quot;c1&quot;&gt;#&amp;gt;&amp;gt; 0.450000   0.000000   0.450000 (  0.456264)&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;The difference is there, but isn&amp;#8217;t too much. But as the number of
+accessors involved increases, the difference becomes greater.&lt;/p&gt;
+
+&lt;p&gt;Besides &lt;code&gt;Module#attr_accessor&lt;/code&gt;, &lt;code&gt;Module&lt;/code&gt; also has &lt;code&gt;#attr_reader&lt;/code&gt; &amp;amp;
+&lt;code&gt;#attr_writer&lt;/code&gt; as well, to generate only the reader/writer that u need.&lt;/p&gt;
+</content>
+  </entry>
   
 </feed>

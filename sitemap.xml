@@ -1,11 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://yoursite.com/</loc>
-        <lastmod>2011-09-21T12:53:32+08:00</lastmod>
+        <loc>http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends/</loc>
+        <lastmod>2011-09-21T18:56:16+08:00</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/blog/archives/</loc>
-        <lastmod>2011-09-21T12:53:32+08:00</lastmod>
+        <loc>http://ngty.github.com/</loc>
+        <lastmod>2011-09-21T19:01:23+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ngty.github.com/blog/archives/</loc>
+        <lastmod>2011-09-21T19:01:01+08:00</lastmod>
     </url>
 </urlset>
