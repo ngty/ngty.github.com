@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-22T23:58:55+08:00</updated>
+  <updated>2011-09-23T00:09:56+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -13,11 +13,11 @@
 
   
   <entry>
-    <title>3 Ways to Define Class Method</title>
-    <link href="http://ngty.github.com/blog/2011/09/22/3-ways-to-define-class-method/"/>
+    <title>3 Ways to Define Class Methods</title>
+    <link href="http://ngty.github.com/blog/2011/09/22/3-ways-to-define-class-methods/"/>
     <updated>2011-09-22T23:47:00+08:00</updated>
-    <id>http://ngty.github.com/blog/2011/09/22/3-ways-to-define-class-method</id>
-    <content type="html">&lt;p&gt;There are 3 ways to create class methods in ruby&lt;/p&gt;
+    <id>http://ngty.github.com/blog/2011/09/22/3-ways-to-define-class-methods</id>
+    <content type="html">&lt;p&gt;There are 3 ways to create class methods in ruby:&lt;/p&gt;
 
 &lt;figure class=&#8217;code&#8217;&gt;&lt;figcaption&gt;&lt;span&gt;Probably when you just need one&lt;/span&gt;&lt;/figcaption&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
