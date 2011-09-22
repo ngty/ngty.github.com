@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Interactive git rebase with reword &amp; fixup"
+title: "Interactive Git Rebase With Reword &amp; Fixup"
 date: 2011-09-21 20:32
 comments: true
 categories: 

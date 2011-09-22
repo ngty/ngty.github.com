@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What you should know abt ActiveRecord's callbacks"
+title: "What You Should Know Abt ActiveRecord's Callbacks"
 date: 2011-09-22 23:04
 comments: true
 categories: 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Module#attr_accessor &amp; friends"
+title: "Module#attr_accessor &amp; Friends"
 date: 2011-09-20 23:55
 comments: true
 categories:
