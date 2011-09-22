@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "3 Ways to Define Class Method"
+title: "3 Ways to Define Class Methods"
 date: 2011-09-22 23:47
 comments: true
 categories: 
@@ -8,7 +8,7 @@ categories:
 - ruby
 ---
 
-There are 3 ways to create class methods in ruby
+There are 3 ways to create class methods in ruby:
 
 ``` ruby Probably when you just need one
 class Thing
