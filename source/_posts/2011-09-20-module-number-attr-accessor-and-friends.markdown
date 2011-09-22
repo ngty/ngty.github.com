@@ -6,7 +6,6 @@ comments: true
 categories:
 - ruby
 - tips
-- beginner
 ---
 
 Have u ever find urself writing simple reader & writer like this:

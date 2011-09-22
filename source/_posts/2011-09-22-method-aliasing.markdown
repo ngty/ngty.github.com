@@ -4,7 +4,6 @@ title: "Method aliasing"
 date: 2011-09-22 22:26
 comments: true
 categories: 
-- beginner
 - ruby
 - tips
 ---
