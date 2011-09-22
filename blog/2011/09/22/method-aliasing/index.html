@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Interactive git rebase with reword &amp; fixup - ty's brain dump</title>
+  <title>Method aliasing - ty's brain dump</title>
   <meta name="author" content="Ng Tze Yang">
   
 
@@ -16,7 +16,7 @@
 
   
   
-  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/">
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/22/method-aliasing/">
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -61,7 +61,7 @@
   
   <header>
     
-      <h1 class="entry-title">Interactive Git Rebase With Reword &amp; Fixup</h1>
+      <h1 class="entry-title">Method Aliasing</h1>
     
     
       <p class="meta">
@@ -74,61 +74,64 @@
 
 
 
-<time datetime="2011-09-21T20:32:00+08:00" pubdate  data-updated="true" >Sep 21<span>st</span>, 2011</time></p>
+<time datetime="2011-09-22T22:26:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time></p>
     
   </header>
 
 
-<div class="entry-content"><p>It is no secret that i&#8217;m a fan of interactive git rebase. It gives me
-the power to clean up the numerous small intermediate commits that i
-did so frequently while in the course of completing a feature (or bugfix).
-In the process, i usually do quite abit of squashing, reshuffling &amp;
-rewording, such that the eventual commits i push upstream are
-well-organized &amp; each commit is meaningful to the rest of the team.</p>
+<div class="entry-content"><p>Method aliasing is what every budding rubyists should pick up.
+This is done using <code>Module#alias_method</code>:</p>
 
-<p>Usually i use <code>pick</code> &amp; <code>squash</code> to achieve the compressing of different
-commits. Recently, my coworker showed me an alternative, which uses <code>reword</code>
-&amp; <code>fixup</code>.  Here&#8217;s how it can be done:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rebase -i &lt;branch></span></code></pre></td></tr></table></div></figure>
-
-
-<p>Instead of doing:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pick 6354612 WIP ~ monkey patched to fix bug#234.
-</span><span class='line'>squash 4de4f66 WIP ~ conform to recommended way of patching.
-</span><span class='line'>squash 3545b15 WIP ~ fixed incomplete removal of hackish patch.
-</span><span class='line'>squash 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="p">;</span> <span class="ss">:xl</span><span class="p">;</span> <span class="k">end</span>
+</span><span class='line'>  <span class="n">alias_method</span> <span class="ss">:mass</span><span class="p">,</span> <span class="ss">:size</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">thing</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">size</span> <span class="c1"># &gt;&gt; xl</span>
+</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">mass</span> <span class="c1"># &gt;&gt; xl</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Do this:</p>
+<p>To say that it is simple aliasing is abit deceiving. Under the hood,
+ruby creates a copy of the original method <code>Thing#size</code>, thus, even
+if you change the original method, the new method <code>Thing#mass</code> still
+points to the same method. Here&#8217;s an extension of the above example:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>reword 6354612 WIP ~ monkey patched to fix bug#234.
-</span><span class='line'>fixup 4de4f66 WIP ~ conform to recommended way of patching.
-</span><span class='line'>fixup 3545b15 WIP ~ fixed incomplete removal of hackish patch.
-</span><span class='line'>fixup 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
+</span><span class='line'>  <span class="c1"># Redefining the original method</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="p">;</span> <span class="ss">:xxl</span><span class="p">;</span> <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">thing</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">size</span> <span class="c1"># &gt;&gt; xxl</span>
+</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">mass</span> <span class="c1"># &gt;&gt; xl</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Of course, the 2 approaches are different:</p>
+<p>It is important to note that the last technique isn&#8217;t encouraged in
+proper software engineering, yet it can really be useful when u need
+a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
 
-<ul>
-<li><code>reword</code> &amp; <code>fixup</code>, u get to either keep the 1st commit message,
-or rephrase it</li>
-<li><code>pick</code> &amp; <code>squash</code>, u have more choices ~ from keeping all of the
-various commit messages, to writing a brand new message</li>
-</ul>
-
-
-<p>For me, i almost always want the effect of <code>reword</code> &amp; <code>fixup</code>.</p>
+<p>If u have some time to spare, you should read more abt
+<a href="http://yehudakatz.com/2009/03/06/alias_method_chain-in-models">yehuda&#8217;s case against rails&#8217; <code>alias_method_chain</code>
+</a>.</p>
 </div>
 
 
@@ -149,12 +152,12 @@ various commit messages, to writing a brand new message</li>
 
 
 
-<time datetime="2011-09-21T20:32:00+08:00" pubdate  data-updated="true" >Sep 21<span>st</span>, 2011</time>
+<time datetime="2011-09-22T22:26:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
+    <a class='category' href='/blog/categories/beginner/'>beginner</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
   
 </span>
 
@@ -177,8 +180,8 @@ various commit messages, to writing a brand new message</li>
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'tybraindump';
-  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/';
-  var disqus_url = 'http://ngty.github.com/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/22/method-aliasing/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/09/22/method-aliasing/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
