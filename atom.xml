@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-22T23:28:56+08:00</updated>
+  <updated>2011-09-22T23:45:33+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -13,7 +13,23 @@
 
   
   <entry>
-    <title>What you should know abt ActiveRecord&#8217;s callbacks</title>
+    <title>Disabling Vim&#8217;s Up/Down/Left/Right Arrows Navi</title>
+    <link href="http://ngty.github.com/blog/2011/09/22/disabling-vims-up-slash-down-slash-left-slash-right-arrows-navi/"/>
+    <updated>2011-09-22T23:34:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/09/22/disabling-vims-up-slash-down-slash-left-slash-right-arrows-navi</id>
+    <content type="html">&lt;p&gt;While doing pairing, a coworker of mine has been promiscuously using
+up/down/left/right arrows navigation, to that extent that it pissed me
+off &amp;amp; i went ahead disabling that feature while he took break.  To
+my DISMAY .. he resorted to promiscuously using h/j/k/l instead :(&lt;/p&gt;
+
+&lt;p&gt;Anyway, here&amp;#8217;s the &lt;a href=&quot;http://stackoverflow.com/questions/5367760/vim-disabling-the-cursor-arrow-keys-but-only-for-navigation&quot;&gt;stackoverflow post that provides the settings to
+disable the up/down/left/right arrows navigation
+&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>What You Should Know Abt ActiveRecord&#8217;s Callbacks</title>
     <link href="http://ngty.github.com/blog/2011/09/22/what-you-should-know-abt-activerecords-callbacks/"/>
     <updated>2011-09-22T23:04:00+08:00</updated>
     <id>http://ngty.github.com/blog/2011/09/22/what-you-should-know-abt-activerecords-callbacks</id>
@@ -66,7 +82,7 @@ chain. The workaround is therefore to return a true always:&lt;/p&gt;
   </entry>
   
   <entry>
-    <title>Method aliasing</title>
+    <title>Method Aliasing</title>
     <link href="http://ngty.github.com/blog/2011/09/22/method-aliasing/"/>
     <updated>2011-09-22T22:26:00+08:00</updated>
     <id>http://ngty.github.com/blog/2011/09/22/method-aliasing</id>
@@ -127,7 +143,7 @@ a quick hack on somebody&amp;#8217;s code, just to patch &amp;amp; get things do
   </entry>
   
   <entry>
-    <title>Interactive git rebase with reword &amp; fixup</title>
+    <title>Interactive Git Rebase With Reword &amp; Fixup</title>
     <link href="http://ngty.github.com/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/"/>
     <updated>2011-09-21T20:32:00+08:00</updated>
     <id>http://ngty.github.com/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup</id>
@@ -185,7 +201,7 @@ various commit messages, to writing a brand new message&lt;/li&gt;
   </entry>
   
   <entry>
-    <title>Module#attr_accessor &amp; friends</title>
+    <title>Module#attr_accessor &amp; Friends</title>
     <link href="http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends/"/>
     <updated>2011-09-20T23:55:00+08:00</updated>
     <id>http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends</id>
