@@ -4,13 +4,40 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-23T00:09:56+08:00</updated>
+  <updated>2011-09-23T13:19:47+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
     
   </author>
 
+  
+  <entry>
+    <title>Yet Another Way to Access Vim Buffers</title>
+    <link href="http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/"/>
+    <updated>2011-09-23T12:55:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers</id>
+    <content type="html">&lt;p&gt;How do you quickly access a particular buffer (amongst
+a long list of buffers) in vim? For ages, i&amp;#8217;ve been
+using &lt;code&gt;:ls&lt;/code&gt;, followed by &lt;code&gt;:b&amp;lt;id&amp;gt;&lt;/code&gt;, where &lt;code&gt;&amp;lt;id&amp;gt;&lt;/code&gt; is
+the id of a particular buffer.&lt;/p&gt;
+
+&lt;p&gt;Recently, a coworker showed me how to use &lt;code&gt;CTRL-b&lt;/code&gt; to
+achieve it. With it, you are presented with vim&amp;#8217;s
+&lt;code&gt;BufExplorer&lt;/code&gt;, &amp;amp; within it, u can goto a specific
+buffer with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;search with &lt;code&gt;/&lt;/code&gt;, followed by &lt;code&gt;enter&lt;/code&gt;, or&lt;/li&gt;
+&lt;li&gt;goto that line with &lt;code&gt;:&amp;lt;lineno&amp;gt;&lt;/code&gt;, followed by &lt;code&gt;enter&lt;/code&gt;, or&lt;/li&gt;
+&lt;li&gt;simply &lt;code&gt;:b&amp;lt;id&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;I&amp;#8217;m sure there are more ways than the above-mentioned &amp;#8230;
+have fun !!&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>3 Ways to Define Class Methods</title>

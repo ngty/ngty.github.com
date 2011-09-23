@@ -5,10 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: git - ty's brain dump</title>
+  <title>Yet Another Way to Access Vim Buffers - ty's brain dump</title>
   <meta name="author" content="Ng Tze Yang">
-  
-    <meta name="description" content="Category: git"/>
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +16,7 @@
 
   
   
-  <link rel="canonical" href="http://ngty.github.comblog/categories/git/">
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/">
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -59,36 +57,107 @@
   <div id="main">
     <div id="content">
       <div>
-<article>
+<article class="hentry">
   
   <header>
-    <h1 class="entry-title">Category: Git</h1>
+    
+      <h1 class="entry-title">Yet Another Way to Access Vim Buffers</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-23T12:55:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time></p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>How do you quickly access a particular buffer (amongst
+a long list of buffers) in vim? For ages, i&#8217;ve been
+using <code>:ls</code>, followed by <code>:b&lt;id&gt;</code>, where <code>&lt;id&gt;</code> is
+the id of a particular buffer.</p>
 
-  
-  <h2>2011</h2>
+<p>Recently, a coworker showed me how to use <code>CTRL-b</code> to
+achieve it. With it, you are presented with vim&#8217;s
+<code>BufExplorer</code>, &amp; within it, u can goto a specific
+buffer with:</p>
 
-<article>
-  
-<h1><a href="/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/">Interactive Git Rebase With Reword &amp; Fixup</a></h1>
-<time datetime="2011-09-21T20:32:00+08:00" pubdate><span class='month'>Sep</span> <span class='day'>21</span> <span class='year'>2011</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/tips/'>tips</a></span>
-</footer>
+<ul>
+<li>search with <code>/</code>, followed by <code>enter</code>, or</li>
+<li>goto that line with <code>:&lt;lineno&gt;</code>, followed by <code>enter</code>, or</li>
+<li>simply <code>:b&lt;id&gt;</code></li>
+</ul>
 
 
-</article>
-
+<p>I&#8217;m sure there are more ways than the above-mentioned &#8230;
+have fun !!</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Ng Tze Yang</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-23T12:55:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tips/'>tips</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'tybraindump';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
