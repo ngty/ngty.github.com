@@ -156,14 +156,31 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Writer</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">)</span>
-</span><span class='line'>    <span class="s2">&quot;</span><span class="si">#{</span><span class="n">w</span> <span class="o">*</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="c1"># &quot;*&quot; is known as &quot;splat&quot; operator</span>
+</span><span class='line'>    <span class="n">w</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </span><span class='line'>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'><span class="no">Writer</span><span class="o">.</span><span class="n">type</span>                <span class="c1"># &gt;&gt; &quot;&quot;</span>
 </span><span class='line'><span class="no">Writer</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>           <span class="c1"># &gt;&gt; &quot;1&quot;</span>
 </span><span class='line'><span class="no">Writer</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">)</span> <span class="c1"># &gt;&gt; &quot;123&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Say &#8220;hello&#8221; to the splat operator <code>*</code>, a greedy fellow that swallows up all
+arguments, from its position onwards, the assigned variable (<code>w</code> in the
+above example) becomes an array that contains all the captured arguments.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">showme</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">args</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">showme</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># &gt;&gt; [1, 2, 3, 4]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -179,8 +196,8 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Writer</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span>
-</span><span class='line'>    <span class="s2">&quot;w1</span><span class="si">#{</span><span class="n">w</span> <span class="o">*</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="c1"># again, we have the &quot;*&quot; (splat) operator</span>
+</span><span class='line'>    <span class="s2">&quot;w1&quot;</span> <span class="o">+</span> <span class="n">w</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span><span class='line'>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>
 </span><span class='line'>
@@ -261,6 +278,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/09/25/ways-a-method-takes-arguments-2/">Ways a Method Takes Arguments (2)</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/24/ways-a-method-takes-arguments-1/">Ways a Method Takes Arguments (1)</a>
       </li>
     
@@ -274,10 +295,6 @@
     
       <li class="post">
         <a href="/blog/2011/09/22/disabling-vims-up-slash-down-slash-left-slash-right-arrows-navi/">Disabling Vim's Up/Down/Left/Right Arrows Navi</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/22/what-you-should-know-abt-activerecords-callbacks/">What You Should Know Abt ActiveRecord's Callbacks</a>
       </li>
     
   </ul>

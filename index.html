@@ -64,6 +64,201 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/25/ways-a-method-takes-arguments-2/">Ways a Method Takes Arguments (2)</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-25T23:57:00+08:00" pubdate  data-updated="true" >Sep 25<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>6. Required hash argument</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">HTML</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">div</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">=&#39;</span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;&quot;</span> <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="s2">&quot;&lt;div </span><span class="si">#{</span><span class="n">attrs</span><span class="si">}</span><span class="s2">&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span>                                   <span class="c1"># ArgumentError</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">({</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">&#39;body&#39;</span><span class="p">})</span>                  <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">({</span><span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">&#39;body&#39;</span><span class="p">})</span> <span class="c1"># &gt;&gt; &quot;&lt;div class=&quot;red&quot; id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Well, the <code>{...}</code> isn&#8217;t necessary when dealing with hash argument as
+the only or last argument, thus the above can be rewritten as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span>                  <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span> <span class="c1"># &gt;&gt; &quot;&lt;div class=&quot;red&quot; id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And using the newer (1.9) json-like hash, we can again rewrite the above as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span>               <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">class</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span> <span class="c1"># &gt;&gt; &quot;&lt;div class=&quot;red&quot; id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>7. Optional hash argument</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">HTML</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">div</span><span class="p">(</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>    <span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">=&#39;</span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;&quot;</span> <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="s2">&quot;&lt;div </span><span class="si">#{</span><span class="n">attrs</span><span class="si">}</span><span class="s2">&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span>                           <span class="c1"># &gt;&gt; &quot;&lt;div &gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span>               <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">class</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span> <span class="c1"># &gt;&gt; &quot;&lt;div class=&quot;red&quot; id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&#8217;s say we want <code>id</code> attribute to be always present, &amp; when unspecified,
+we auto-generate one:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">HTML</span>
+</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">div</span><span class="p">(</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>      <span class="n">attrs</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span> <span class="o">||=</span> <span class="s2">&quot;div-</span><span class="si">#{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">=&#39;</span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;&quot;</span> <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="s2">&quot;&lt;div </span><span class="si">#{</span><span class="n">attrs</span><span class="si">}</span><span class="s2">&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">count</span>
+</span><span class='line'>      <span class="vi">@count</span> <span class="o">||=</span> <span class="mi">0</span>
+</span><span class='line'>      <span class="vi">@count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span>   <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">class</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="c1"># &gt;&gt; &quot;&lt;div class=&quot;red&quot; id=&quot;div-1&quot;&gt;&lt;/div&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>8. Mixed arguments with last as optional hash</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">HTML</span>
+</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">element</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class='line'>      <span class="n">attrs</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span> <span class="o">||=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">tag</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">=&#39;</span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;&quot;</span> <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="s2">&quot;&lt;</span><span class="si">#{</span><span class="n">tag</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">attrs</span><span class="si">}</span><span class="s2">&gt;&lt;/</span><span class="si">#{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">count</span>
+</span><span class='line'>      <span class="vi">@count</span> <span class="o">||=</span> <span class="mi">0</span>
+</span><span class='line'>      <span class="vi">@count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">element</span>                        <span class="c1"># &gt;&gt; ArgumentError</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>                 <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;div-1&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">})</span>   <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="p">{</span><span class="n">class</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">})</span> <span class="c1"># &gt;&gt; &quot;&lt;div class=&quot;red&quot; id=&quot;div-2&quot;&gt;&lt;/div&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Again, the <code>{...}</code> isn&#8217;t necessary when dealing with hash argument as
+the only or last argument, thus the above can be rewritten as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span>   <span class="c1"># &gt;&gt; &quot;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&quot;</span>
+</span><span class='line'><span class="no">HTML</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="c1"># &gt;&gt; &quot;&lt;div class=&quot;red&quot; id=&quot;div-3&quot;&gt;&lt;/div&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/24/ways-a-method-takes-arguments-1/">Ways a Method Takes Arguments (1)</a></h1>
     
     
@@ -159,14 +354,31 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Writer</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">)</span>
-</span><span class='line'>    <span class="s2">&quot;</span><span class="si">#{</span><span class="n">w</span> <span class="o">*</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="c1"># &quot;*&quot; is known as &quot;splat&quot; operator</span>
+</span><span class='line'>    <span class="n">w</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </span><span class='line'>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'><span class="no">Writer</span><span class="o">.</span><span class="n">type</span>                <span class="c1"># &gt;&gt; &quot;&quot;</span>
 </span><span class='line'><span class="no">Writer</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>           <span class="c1"># &gt;&gt; &quot;1&quot;</span>
 </span><span class='line'><span class="no">Writer</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">)</span> <span class="c1"># &gt;&gt; &quot;123&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Say &#8220;hello&#8221; to the splat operator <code>*</code>, a greedy fellow that swallows up all
+arguments, from its position onwards, the assigned variable (<code>w</code> in the
+above example) becomes an array that contains all the captured arguments.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">showme</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">args</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">showme</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># &gt;&gt; [1, 2, 3, 4]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -182,8 +394,8 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Writer</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span>
-</span><span class='line'>    <span class="s2">&quot;w1</span><span class="si">#{</span><span class="n">w</span> <span class="o">*</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">type</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="c1"># again, we have the &quot;*&quot; (splat) operator</span>
+</span><span class='line'>    <span class="s2">&quot;w1&quot;</span> <span class="o">+</span> <span class="n">w</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span><span class='line'>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>
 </span><span class='line'>
@@ -824,6 +1036,10 @@ i&#8217;ll leave it as an exercise for the reader.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/09/25/ways-a-method-takes-arguments-2/">Ways a Method Takes Arguments (2)</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/24/ways-a-method-takes-arguments-1/">Ways a Method Takes Arguments (1)</a>
       </li>
     
@@ -837,10 +1053,6 @@ i&#8217;ll leave it as an exercise for the reader.</p>
     
       <li class="post">
         <a href="/blog/2011/09/22/disabling-vims-up-slash-down-slash-left-slash-right-arrows-navi/">Disabling Vim&#8217;s Up/Down/Left/Right Arrows Navi</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/22/what-you-should-know-abt-activerecords-callbacks/">What You Should Know Abt ActiveRecord&#8217;s Callbacks</a>
       </li>
     
   </ul>
