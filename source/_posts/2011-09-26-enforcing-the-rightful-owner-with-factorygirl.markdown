@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Enforcing the Rightful Owner With Factory Girl"
+title: "Enforcing the Rightful Owner With FactoryGirl"
 date: 2011-09-26 00:10
 comments: true
 categories: 
@@ -10,9 +10,10 @@ categories:
 - spec
 ---
 
-We use thoughtbot's FactoryGirl extensively in our daily spec (& feature)
-writing. One recent problem we encounter is the failure to correctly set the
-associations between the following 2 example models.
+We use thoughtbot's [FactoryGirl](https://github.com/thoughtbot/factory_girl)
+extensively in our daily spec (& feature) writing. One recent problem we
+encounter is the failure to correctly set the associations between the
+following 2 example models.
 
 ``` ruby
 class Blog < ActiveRecord::Base
