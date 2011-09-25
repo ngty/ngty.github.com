@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-26T00:43:18+08:00</updated>
+  <updated>2011-09-26T00:49:48+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -13,13 +13,14 @@
 
   
   <entry>
-    <title>Enforcing the Rightful Owner With Factory Girl</title>
-    <link href="http://ngty.github.com/blog/2011/09/26/enforcing-the-rightful-owner-with-factory-girl/"/>
+    <title>Enforcing the Rightful Owner With FactoryGirl</title>
+    <link href="http://ngty.github.com/blog/2011/09/26/enforcing-the-rightful-owner-with-factorygirl/"/>
     <updated>2011-09-26T00:10:00+08:00</updated>
-    <id>http://ngty.github.com/blog/2011/09/26/enforcing-the-rightful-owner-with-factory-girl</id>
-    <content type="html">&lt;p&gt;We use thoughtbot&amp;#8217;s FactoryGirl extensively in our daily spec (&amp;amp; feature)
-writing. One recent problem we encounter is the failure to correctly set the
-associations between the following 2 example models.&lt;/p&gt;
+    <id>http://ngty.github.com/blog/2011/09/26/enforcing-the-rightful-owner-with-factorygirl</id>
+    <content type="html">&lt;p&gt;We use thoughtbot&amp;#8217;s &lt;a href=&quot;https://github.com/thoughtbot/factory_girl&quot;&gt;FactoryGirl&lt;/a&gt;
+extensively in our daily spec (&amp;amp; feature) writing. One recent problem we
+encounter is the failure to correctly set the associations between the
+following 2 example models.&lt;/p&gt;
 
 &lt;figure class=&#8217;code&#8217;&gt;&lt;figcaption&gt;&lt;span&gt;&lt;/span&gt;&lt;/figcaption&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
 &lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
