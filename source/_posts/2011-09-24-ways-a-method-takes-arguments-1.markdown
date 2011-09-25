@@ -53,7 +53,7 @@ Writer.type("1", "2") # >> "12"
 ``` ruby
 class Writer
   def self.type(*w) # "*" is known as "splat" operator
-    "#{w * ''}"
+    w.join('')
   end
 end
 
@@ -62,12 +62,24 @@ Writer.type("1")           # >> "1"
 Writer.type("1", "2", "3") # >> "123"
 ```
 
+Say "hello" to the splat operator `*`, a greedy fellow that swallows up all
+arguments, from its position onwards, the assigned variable (`w` in the
+above example) becomes an array that contains all the captured arguments.
+
+``` ruby
+def showme(*args)
+  args
+end
+
+showme(1, 2, 3, 4) # >> [1, 2, 3, 4]
+```
+
 ### 5. One argument is required while the rest are optional & can be any number
 
 ``` ruby
 class Writer
-  def self.type(w1, *w)
-    "w1#{w * ''}"
+  def self.type(w1, *w) # again, we have the "*" (splat) operator
+    "w1" + w.join("")
   end
 end
 
