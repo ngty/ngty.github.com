@@ -52,7 +52,7 @@ Writer.type("1", "2") # >> "12"
 
 ``` ruby
 class Writer
-  def self.type(*w)
+  def self.type(*w) # "*" is known as "splat" operator
     "#{w * ''}"
   end
 end
