@@ -8,19 +8,33 @@ categories:
 - tips
 ---
 
-How do you quickly access a particular buffer (amongst
-a long list of buffers) in vim? For ages, i've been
-using `:ls`, followed by `:b<id>`, where `<id>` is
-the id of a particular buffer.
+How do you quickly access a particular buffer (amongst a long list of
+buffers) in vim? For ages, i've been using `:ls`, followed by `:b<id>`,
+where `<id>` is the id of a particular buffer.
 
-Recently, a coworker showed me how to use `CTRL-b` to
-achieve it. With it, you are presented with vim's
-`BufExplorer`, & within it, u can goto a specific
-buffer with:
+Recently, i've discovered yet another way to acheive it using
+[`BufExplorer`](http://www.vim.org/scripts/script.php?script_id=42),
+to install it, download the
+[latest version](http://www.vim.org/scripts/script.php?script_id=42)
+& save it to `~/.vim/bundle`, then:
+
+```
+$ cd ~/.vim/bundle
+$ unzip bufexplorer.zip
+```
+
+Restart your vim, open several files, & try `\be` (backslash + b + e),
+you are then presented with `BufExplorer`, & within it, u can goto a
+specific buffer with:
 
 * search with `/`, followed by `enter`, or
 * goto that line with `:<lineno>`, followed by `enter`, or
 * simply `:b<id>`
 
-I'm sure there are more ways than the above-mentioned ...
-have fun !!
+Play around with:
+
+* `\be` (backslash + b + e) for full page
+* `\bs` (backslash + b + s) for horizontal split
+* `\bv` (backslash + b + s) for vertical split
+
+Pick the one u like & have fun !!
