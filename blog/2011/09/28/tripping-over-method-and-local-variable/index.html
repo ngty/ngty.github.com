@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Tripping Over Method &amp; Local Variable - ty's brain dump</title>
+  <meta name="author" content="Ng Tze Yang">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/28/tripping-over-method-and-local-variable/">
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ty's brain dump" type="application/atom+xml"/>
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">ty's brain dump</a></h1>
+  
+    <h2>~ non-optimized bits & pieces</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:ngty.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Index</a></li>
+  <li><a href="/blog/archives">Archive</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Tripping Over Method &amp; Local Variable</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-28T23:14:00+08:00" pubdate  data-updated="true" >Sep 28<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+<div class="entry-content"><p>As you know, ruby always tries hard to get out of the programmer&#8217;s
+way most of the time. One good example is when u invoke a method
+that doesn&#8217;t require any argument:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span>
+</span><span class='line'>  <span class="ss">:ok</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span>   <span class="c1"># &gt;&gt; :ok</span>
+</span><span class='line'><span class="n">mm</span><span class="p">()</span> <span class="c1"># &gt;&gt; :ok</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Almost always, to invoke <code>mm</code>, <code>mm</code> is preferred over <code>mm()</code>, doing
+it the <code>mm()</code> way is so un-rubyish. Yet this flexibility tripped us
+over today, consider the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When we ran the above spec, we get
+<code>undefined method 'macho' for "alien":String (NoMethodError)</code> .. why ??</p>
+
+<p>Here&#8217;s our intended behaviour:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines alien()</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines robot()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span>  <span class="c1"># set local var thing</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>      <span class="c1"># defines subject() to return thing()</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span>  <span class="c1"># defines thing() to return the evaluate alien() or robot()</span>
+</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is what happened instead:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines alien()</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines robot()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span> <span class="c1"># set local var thing</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>     <span class="c1"># ** defines subject() to return the local var thing</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># ** defines thing() which never gets invoked</span>
+</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To fix the problem, we can either:</p>
+
+<ul>
+<li><p>avoid confusing names by renaming the local variable <code>thing</code> to
+<code>_thing</code> &amp; amend all its intended usage accordingly, OR</p></li>
+<li><p>be explicte when invoking method by rewriting
+<code>let(:subject) { thing }</code> as <code>let(:subject) { thing() }</code></p></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ng Tze Yang</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-28T23:14:00+08:00" pubdate  data-updated="true" >Sep 28<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'tybraindump';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/28/tripping-over-method-and-local-variable/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/09/28/tripping-over-method-and-local-variable/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/26/enforcing-the-rightful-owner-with-factorygirl/">Enforcing the Rightful Owner With FactoryGirl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/25/ways-a-method-takes-arguments-2/">Ways a Method Takes Arguments (2)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/24/ways-a-method-takes-arguments-1/">Ways a Method Takes Arguments (1)</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Ng Tze Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+
+</body>
+</html>

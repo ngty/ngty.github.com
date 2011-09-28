@@ -64,6 +64,86 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/">Interactive Git Rebase With Reword &amp; Fixup</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-21T20:32:00+08:00" pubdate  data-updated="true" >Sep 21<span>st</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It is no secret that i&#8217;m a fan of interactive git rebase. It gives me
+the power to clean up the numerous small intermediate commits that i
+did so frequently while in the course of completing a feature (or bugfix).
+In the process, i usually do quite abit of squashing, reshuffling &amp;
+rewording, such that the eventual commits i push upstream are
+well-organized &amp; each commit is meaningful to the rest of the team.</p>
+
+<p>Usually i use <code>pick</code> &amp; <code>squash</code> to achieve the compressing of different
+commits. Recently, my coworker showed me an alternative, which uses <code>reword</code>
+&amp; <code>fixup</code>.  Here&#8217;s how it can be done:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rebase -i &lt;branch></span></code></pre></td></tr></table></div></figure>
+
+
+<p>Instead of doing:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pick 6354612 WIP ~ monkey patched to fix bug#234.
+</span><span class='line'>squash 4de4f66 WIP ~ conform to recommended way of patching.
+</span><span class='line'>squash 3545b15 WIP ~ fixed incomplete removal of hackish patch.
+</span><span class='line'>squash 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Do this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>reword 6354612 WIP ~ monkey patched to fix bug#234.
+</span><span class='line'>fixup 4de4f66 WIP ~ conform to recommended way of patching.
+</span><span class='line'>fixup 3545b15 WIP ~ fixed incomplete removal of hackish patch.
+</span><span class='line'>fixup 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Of course, the 2 approaches are different:</p>
+
+<ul>
+<li><code>reword</code> &amp; <code>fixup</code>, u get to either keep the 1st commit message,
+or rephrase it</li>
+<li><code>pick</code> &amp; <code>squash</code>, u have more choices ~ from keeping all of the
+various commit messages, to writing a brand new message</li>
+</ul>
+
+
+<p>For me, i almost always want the effect of <code>reword</code> &amp; <code>fixup</code>.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/20/module-number-attr-accessor-and-friends/">Module#attr_accessor &amp; Friends</a></h1>
     
     
@@ -252,6 +332,10 @@ i&#8217;ll leave it as an exercise for the reader.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a>
       </li>
     
@@ -265,10 +349,6 @@ i&#8217;ll leave it as an exercise for the reader.</p>
     
       <li class="post">
         <a href="/blog/2011/09/24/ways-a-method-takes-arguments-1/">Ways a Method Takes Arguments (1)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/23/yet-another-way-to-access-vim-buffers/">Yet Another Way to Access Vim Buffers</a>
       </li>
     
   </ul>
