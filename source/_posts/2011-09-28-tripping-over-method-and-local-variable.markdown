@@ -80,7 +80,8 @@ end
 To fix the problem, we can either:
 
 * avoid confusing names by renaming the local variable `thing` to
-`_thing` & amend all its intended usage accordingly, OR
+`_thing` & amend all its intended usage accordingly (which include
+`let(:thing) { send(thing) }` to `let(:thing) { send(_thing) }`), OR
 
 * be explicte when invoking method by rewriting
 `let(:subject) { thing }` as `let(:subject) { thing() }`
