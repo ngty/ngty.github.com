@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-26T23:26:48+08:00</updated>
+  <updated>2011-09-28T23:06:09+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -475,15 +475,25 @@ above example) becomes an array that contains all the captured arguments.&lt;/p&
     <link href="http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/"/>
     <updated>2011-09-23T12:55:00+08:00</updated>
     <id>http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers</id>
-    <content type="html">&lt;p&gt;How do you quickly access a particular buffer (amongst
-a long list of buffers) in vim? For ages, i&amp;#8217;ve been
-using &lt;code&gt;:ls&lt;/code&gt;, followed by &lt;code&gt;:b&amp;lt;id&amp;gt;&lt;/code&gt;, where &lt;code&gt;&amp;lt;id&amp;gt;&lt;/code&gt; is
-the id of a particular buffer.&lt;/p&gt;
+    <content type="html">&lt;p&gt;How do you quickly access a particular buffer (amongst a long list of
+buffers) in vim? For ages, i&amp;#8217;ve been using &lt;code&gt;:ls&lt;/code&gt;, followed by &lt;code&gt;:b&amp;lt;id&amp;gt;&lt;/code&gt;,
+where &lt;code&gt;&amp;lt;id&amp;gt;&lt;/code&gt; is the id of a particular buffer.&lt;/p&gt;
 
-&lt;p&gt;Recently, a coworker showed me how to use &lt;code&gt;CTRL-b&lt;/code&gt; to
-achieve it. With it, you are presented with vim&amp;#8217;s
-&lt;code&gt;BufExplorer&lt;/code&gt;, &amp;amp; within it, u can goto a specific
-buffer with:&lt;/p&gt;
+&lt;p&gt;Recently, i&amp;#8217;ve discovered yet another way to acheive it using
+&lt;a href=&quot;http://www.vim.org/scripts/script.php?script_id=42&quot;&gt;&lt;code&gt;BufExplorer&lt;/code&gt;&lt;/a&gt;,
+to install it, download the
+&lt;a href=&quot;http://www.vim.org/scripts/script.php?script_id=42&quot;&gt;latest version&lt;/a&gt;
+&amp;amp; save it to &lt;code&gt;~/.vim/bundle&lt;/code&gt;, then:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ cd ~/.vim/bundle
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ unzip bufexplorer.zip&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;Restart your vim, open several files, &amp;amp; try &lt;code&gt;\be&lt;/code&gt; (backslash + b + e),
+you are then presented with &lt;code&gt;BufExplorer&lt;/code&gt;, &amp;amp; within it, u can goto a
+specific buffer with:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;search with &lt;code&gt;/&lt;/code&gt;, followed by &lt;code&gt;enter&lt;/code&gt;, or&lt;/li&gt;
@@ -492,8 +502,16 @@ buffer with:&lt;/p&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;I&amp;#8217;m sure there are more ways than the above-mentioned &amp;#8230;
-have fun !!&lt;/p&gt;
+&lt;p&gt;Play around with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;\be&lt;/code&gt; (backslash + b + e) for full page&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\bs&lt;/code&gt; (backslash + b + s) for horizontal split&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\bv&lt;/code&gt; (backslash + b + s) for vertical split&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Pick the one u like &amp;amp; have fun !!&lt;/p&gt;
 </content>
   </entry>
   

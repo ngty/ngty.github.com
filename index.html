@@ -628,15 +628,25 @@ above example) becomes an array that contains all the captured arguments.</p>
   </header>
 
 
-  <div class="entry-content"><p>How do you quickly access a particular buffer (amongst
-a long list of buffers) in vim? For ages, i&#8217;ve been
-using <code>:ls</code>, followed by <code>:b&lt;id&gt;</code>, where <code>&lt;id&gt;</code> is
-the id of a particular buffer.</p>
+  <div class="entry-content"><p>How do you quickly access a particular buffer (amongst a long list of
+buffers) in vim? For ages, i&#8217;ve been using <code>:ls</code>, followed by <code>:b&lt;id&gt;</code>,
+where <code>&lt;id&gt;</code> is the id of a particular buffer.</p>
 
-<p>Recently, a coworker showed me how to use <code>CTRL-b</code> to
-achieve it. With it, you are presented with vim&#8217;s
-<code>BufExplorer</code>, &amp; within it, u can goto a specific
-buffer with:</p>
+<p>Recently, i&#8217;ve discovered yet another way to acheive it using
+<a href="http://www.vim.org/scripts/script.php?script_id=42"><code>BufExplorer</code></a>,
+to install it, download the
+<a href="http://www.vim.org/scripts/script.php?script_id=42">latest version</a>
+&amp; save it to <code>~/.vim/bundle</code>, then:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
+</span><span class='line'>$ unzip bufexplorer.zip</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart your vim, open several files, &amp; try <code>\be</code> (backslash + b + e),
+you are then presented with <code>BufExplorer</code>, &amp; within it, u can goto a
+specific buffer with:</p>
 
 <ul>
 <li>search with <code>/</code>, followed by <code>enter</code>, or</li>
@@ -645,8 +655,16 @@ buffer with:</p>
 </ul>
 
 
-<p>I&#8217;m sure there are more ways than the above-mentioned &#8230;
-have fun !!</p>
+<p>Play around with:</p>
+
+<ul>
+<li><code>\be</code> (backslash + b + e) for full page</li>
+<li><code>\bs</code> (backslash + b + s) for horizontal split</li>
+<li><code>\bv</code> (backslash + b + s) for vertical split</li>
+</ul>
+
+
+<p>Pick the one u like &amp; have fun !!</p>
 </div>
   
   
