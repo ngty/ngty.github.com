@@ -64,6 +64,250 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/29/flexible-method-arguments-with-the-splat-operator/">Flexible Method Arguments With the Splat Operator</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-29T00:16:00+08:00" pubdate  data-updated="true" >Sep 29<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The splat operator allows a method to accepts 0 ~ ruby&#8217;s max number
+(hm, i don&#8217;t know what number is that) of arguments, this makes
+it super flexible, &amp; here are some ways to take advantage of that:</p>
+
+<h2>1) Probably simple flat list</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">args</span><span class="o">.</span><span class="n">each_with_index</span> <span class="p">{</span><span class="o">|</span><span class="n">arg</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;A[</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: </span><span class="si">#{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span>
+</span><span class='line'><span class="c1"># &gt;&gt; (blank)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[1]: 2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>2) May have array &amp; must be flattened</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="o">[</span><span class="n">args</span><span class="o">].</span><span class="n">flatten</span><span class="o">.</span><span class="n">each_with_index</span> <span class="p">{</span><span class="o">|</span><span class="n">arg</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;A[</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: </span><span class="si">#{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span>
+</span><span class='line'><span class="c1"># &gt;&gt; (blank)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># same as mm([1])</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span> <span class="c1"># same as mm([1], [2]), mm(1, [2]) &amp; mm([1], 2)</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[1]: 2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">)</span> <span class="c1"># same as mm([1, 2, 3]), mm([1], [2, 3]), etc</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[1]: 2</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[2]: 3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>3) May want to support options-like usage</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">opts</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span> <span class="p">?</span> <span class="n">args</span><span class="o">.</span><span class="n">pop</span> <span class="p">:</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="n">args</span><span class="o">.</span><span class="n">each_with_index</span> <span class="p">{</span><span class="o">|</span><span class="n">arg</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;A[</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: </span><span class="si">#{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">opts</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;O[</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2">]: </span><span class="si">#{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span>
+</span><span class='line'><span class="c1"># &gt;&gt; (blank)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[x]: 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[x]: 2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[1]: 2</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[x]: 3</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[y]: 4</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>4) May want to passing in a code-block</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">args</span><span class="o">.</span><span class="n">each_with_index</span> <span class="p">{</span><span class="o">|</span><span class="n">arg</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;A[</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: </span><span class="si">#{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">block</span><span class="o">.</span><span class="n">call</span> <span class="k">if</span> <span class="nb">block_given?</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span>
+</span><span class='line'><span class="c1"># &gt;&gt; (blank)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span> <span class="p">{</span> <span class="s2">&quot;B[*]: rocks&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># &gt;&gt; B[*]: rocks</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;B[*]: rocks&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; B[*]: rocks</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;B[*]: rocks&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[1]: 2</span>
+</span><span class='line'><span class="c1"># &gt;&gt; B[*]: rocks</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>5) All in one</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">opts</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span> <span class="p">?</span> <span class="n">args</span><span class="o">.</span><span class="n">pop</span> <span class="p">:</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="o">[</span><span class="n">args</span><span class="o">].</span><span class="n">flatten</span><span class="o">.</span><span class="n">each_with_index</span> <span class="p">{</span><span class="o">|</span><span class="n">arg</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;A[</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: </span><span class="si">#{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">opts</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;O[</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2">]: </span><span class="si">#{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">block</span><span class="o">.</span><span class="n">call</span> <span class="k">if</span> <span class="nb">block_given?</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;B[*]: rocks&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[x]: 4</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[y]: 5</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[0]: 1</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[1]: 2</span>
+</span><span class='line'><span class="c1"># &gt;&gt; A[2]: 3</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[x]: 4</span>
+</span><span class='line'><span class="c1"># &gt;&gt; O[y]: 5</span>
+</span><span class='line'><span class="c1"># &gt;&gt; B[*]: rocks</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Extra Reading</h2>
+
+<p>To advance ur ruby kungfu, you probably want some extra reading from the
+<a href="http://github.com/sandal/rbp-book/raw/gh-pages/pdfs/ch02.pdf">free chapter abt designing beautiful apis</a>,
+from <a href="http://rubybestpractices.com/">Ruby Best Practices</a>.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a></h1>
     
     
@@ -1043,89 +1287,6 @@ chain. The workaround is therefore to return a true always:</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/22/method-aliasing/">Method Aliasing</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-22T22:26:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Method aliasing is what every budding rubyists should pick up.
-This is done using <code>Module#alias_method</code>:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="p">;</span> <span class="ss">:xl</span><span class="p">;</span> <span class="k">end</span>
-</span><span class='line'>  <span class="n">alias_method</span> <span class="ss">:mass</span><span class="p">,</span> <span class="ss">:size</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">thing</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">size</span> <span class="c1"># &gt;&gt; xl</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">mass</span> <span class="c1"># &gt;&gt; xl</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To say that it is simple aliasing is abit deceiving. Under the hood,
-ruby creates a copy of the original method <code>Thing#size</code>, thus, even
-if you change the original method, the new method <code>Thing#mass</code> still
-points to the same method. Here&#8217;s an extension of the above example:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="c1"># Redefining the original method</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="p">;</span> <span class="ss">:xxl</span><span class="p">;</span> <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">thing</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">size</span> <span class="c1"># &gt;&gt; xxl</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">mass</span> <span class="c1"># &gt;&gt; xl</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It is important to note that the last technique isn&#8217;t encouraged in
-proper software engineering, yet it can really be useful when u need
-a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
-
-<p>If u have some time to spare, you should read more abt
-<a href="http://yehudakatz.com/2009/03/06/alias_method_chain-in-models">yehuda&#8217;s case against rails&#8217; <code>alias_method_chain</code>
-</a>.</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -1154,6 +1315,10 @@ a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/09/29/flexible-method-arguments-with-the-splat-operator/">Flexible Method Arguments With the Splat Operator</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a>
       </li>
     
@@ -1167,10 +1332,6 @@ a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
     
       <li class="post">
         <a href="/blog/2011/09/25/ways-a-method-takes-arguments-2/">Ways a Method Takes Arguments (2)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/24/ways-a-method-takes-arguments-1/">Ways a Method Takes Arguments (1)</a>
       </li>
     
   </ul>
