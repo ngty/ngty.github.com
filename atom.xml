@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-29T00:06:28+08:00</updated>
+  <updated>2011-09-29T00:12:38+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -132,7 +132,8 @@ over today, consider the following:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;avoid confusing names by renaming the local variable &lt;code&gt;thing&lt;/code&gt; to
-&lt;code&gt;_thing&lt;/code&gt; &amp;amp; amend all its intended usage accordingly, OR&lt;/p&gt;&lt;/li&gt;
+&lt;code&gt;_thing&lt;/code&gt; &amp;amp; amend all its intended usage accordingly (which include
+&lt;code&gt;let(:thing) { send(thing) }&lt;/code&gt; to &lt;code&gt;let(:thing) { send(_thing) }&lt;/code&gt;), OR&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;be explicte when invoking method by rewriting
 &lt;code&gt;let(:subject) { thing }&lt;/code&gt; as &lt;code&gt;let(:subject) { thing() }&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;

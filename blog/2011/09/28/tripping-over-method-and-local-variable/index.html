@@ -194,7 +194,8 @@ over today, consider the following:</p>
 
 <ul>
 <li><p>avoid confusing names by renaming the local variable <code>thing</code> to
-<code>_thing</code> &amp; amend all its intended usage accordingly, OR</p></li>
+<code>_thing</code> &amp; amend all its intended usage accordingly (which include
+<code>let(:thing) { send(thing) }</code> to <code>let(:thing) { send(_thing) }</code>), OR</p></li>
 <li><p>be explicte when invoking method by rewriting
 <code>let(:subject) { thing }</code> as <code>let(:subject) { thing() }</code></p></li>
 </ul>
