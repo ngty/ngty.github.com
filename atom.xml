@@ -4,13 +4,47 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-30T09:58:29+08:00</updated>
+  <updated>2011-09-30T12:42:34+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
     
   </author>
 
+  
+  <entry>
+    <title>Open File &amp; Goto Line</title>
+    <link href="http://ngty.github.com/blog/2011/09/30/open-file-and-goto-line/"/>
+    <updated>2011-09-30T12:37:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/09/30/open-file-and-goto-line</id>
+    <content type="html">&lt;p&gt;I only get to know this recently, you can open a file &amp;amp; goto
+a specific line in vim with:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ vim /path/to/file +100&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;The above opens &lt;code&gt;/path/to/file&lt;/code&gt; &amp;amp; sets u on &lt;code&gt;line 100&lt;/code&gt;. When
+are already in vim, you can acheive it with:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;:e /path/to/another/file +99&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;But this won&amp;#8217;t work for buffer though, meaning NONE of the
+following will work :(&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;:b /path/to/another/file +99
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;:b&amp;lt;id&amp;gt; +99
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;:b# +99&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+
+</content>
+  </entry>
   
   <entry>
     <title>Flexible Method Arguments With the Splat Operator</title>
