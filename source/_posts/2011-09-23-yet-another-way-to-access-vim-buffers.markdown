@@ -31,9 +31,16 @@ specific buffer with:
 * goto that line with `:<lineno>`, followed by `enter`, or
 * simply `:b<id>`
 
-Play around with:
+If you want to be able to goto `BufExplorer` by doing `CTRL-b`, just add
+the following line to ur `~/.vimrc`:
 
-* `\be` (backslash + b + e) for full page
+```
+nnoremap <C-B> :BufExplorer<cr>
+```
+
+If you prefer loading `BufExplorer` in horizontal or vertical split, you
+may wanna try:
+
 * `\bs` (backslash + b + s) for horizontal split
 * `\bv` (backslash + b + s) for vertical split
 
