@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-29T01:08:46+08:00</updated>
+  <updated>2011-09-30T09:58:29+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -822,6 +822,16 @@ above example) becomes an array that contains all the captured arguments.&lt;/p&
   </entry>
   
   <entry>
+    <title>Vim Sub With &amp; Without &#8216;G&#8217;</title>
+    <link href="http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/"/>
+    <updated>2011-09-23T14:34:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g</id>
+    <content type="html">&lt;p&gt;Cleaning up
+  -&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
     <title>Yet Another Way to Access Vim Buffers</title>
     <link href="http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/"/>
     <updated>2011-09-23T12:55:00+08:00</updated>
@@ -853,10 +863,17 @@ specific buffer with:&lt;/p&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;Play around with:&lt;/p&gt;
+&lt;p&gt;If you want to be able to goto &lt;code&gt;BufExplorer&lt;/code&gt; by doing &lt;code&gt;CTRL-b&lt;/code&gt;, just add
+the following line to ur &lt;code&gt;~/.vimrc&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;nnoremap &amp;lt;C-B&amp;gt; :BufExplorer&amp;lt;cr&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;If you prefer loading &lt;code&gt;BufExplorer&lt;/code&gt; in horizontal or vertical split, you
+may wanna try:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;\be&lt;/code&gt; (backslash + b + e) for full page&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;\bs&lt;/code&gt; (backslash + b + s) for horizontal split&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;\bv&lt;/code&gt; (backslash + b + s) for vertical split&lt;/li&gt;
 &lt;/ul&gt;

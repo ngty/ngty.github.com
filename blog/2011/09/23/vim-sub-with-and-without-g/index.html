@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Yet Another Way to Access Vim Buffers - ty's brain dump</title>
+  <title>Vim Sub With &amp; Without 'G' - ty's brain dump</title>
   <meta name="author" content="Ng Tze Yang">
   
 
@@ -16,7 +16,7 @@
 
   
   
-  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/">
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/">
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -61,7 +61,7 @@
   
   <header>
     
-      <h1 class="entry-title">Yet Another Way to Access Vim Buffers</h1>
+      <h1 class="entry-title">Vim Sub With &amp; Without 'G'</h1>
     
     
       <p class="meta">
@@ -74,55 +74,13 @@
 
 
 
-<time datetime="2011-09-23T12:55:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time></p>
+<time datetime="2011-09-23T14:34:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time></p>
     
   </header>
 
 
-<div class="entry-content"><p>How do you quickly access a particular buffer (amongst a long list of
-buffers) in vim? For ages, i&#8217;ve been using <code>:ls</code>, followed by <code>:b&lt;id&gt;</code>,
-where <code>&lt;id&gt;</code> is the id of a particular buffer.</p>
-
-<p>Recently, i&#8217;ve discovered yet another way to acheive it using
-<a href="http://www.vim.org/scripts/script.php?script_id=42"><code>BufExplorer</code></a>,
-to install it, download the
-<a href="http://www.vim.org/scripts/script.php?script_id=42">latest version</a>
-&amp; save it to <code>~/.vim/bundle</code>, then:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
-</span><span class='line'>$ unzip bufexplorer.zip</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Restart your vim, open several files, &amp; try <code>\be</code> (backslash + b + e),
-you are then presented with <code>BufExplorer</code>, &amp; within it, u can goto a
-specific buffer with:</p>
-
-<ul>
-<li>search with <code>/</code>, followed by <code>enter</code>, or</li>
-<li>goto that line with <code>:&lt;lineno&gt;</code>, followed by <code>enter</code>, or</li>
-<li>simply <code>:b&lt;id&gt;</code></li>
-</ul>
-
-
-<p>If you want to be able to goto <code>BufExplorer</code> by doing <code>CTRL-b</code>, just add
-the following line to ur <code>~/.vimrc</code>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>nnoremap &lt;C-B&gt; :BufExplorer&lt;cr&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you prefer loading <code>BufExplorer</code> in horizontal or vertical split, you
-may wanna try:</p>
-
-<ul>
-<li><code>\bs</code> (backslash + b + s) for horizontal split</li>
-<li><code>\bv</code> (backslash + b + s) for vertical split</li>
-</ul>
-
-
-<p>Pick the one u like &amp; have fun !!</p>
+<div class="entry-content"><p>Cleaning up
+  -</p>
 </div>
 
 
@@ -143,7 +101,7 @@ may wanna try:</p>
 
 
 
-<time datetime="2011-09-23T12:55:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time>
+<time datetime="2011-09-23T14:34:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time>
       
 
 <span class="categories">
@@ -171,8 +129,8 @@ may wanna try:</p>
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'tybraindump';
-  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/';
-  var disqus_url = 'http://ngty.github.com/blog/2011/09/23/yet-another-way-to-access-vim-buffers/';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -64,6 +64,81 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/22/what-you-should-know-abt-activerecords-callbacks/">What You Should Know Abt ActiveRecord&#8217;s Callbacks</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-22T23:04:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m a fan of ActiveRecord&#8217;s callbacks, as i see it a clean way to
+get things done in the life-cycle of a model instance. Yet, today
+a couple of us just tripped over the following:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">before_create</span> <span class="ss">:reset_pretty_flag</span>
+</span><span class='line'>
+</span><span class='line'><span class="kp">private</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">reset_pretty_flag</span>
+</span><span class='line'>    <span class="c1"># Let&#39;s KISS for now, even though the logic is flawed :P</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">pretty</span> <span class="o">=</span> <span class="nb">name</span><span class="o">.</span><span class="n">downcase</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s1">&#39;pretty&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The problem with <code>Thing#reset_pretty_flag</code> is that in the unfortunate
+case that thing isn&#8217;t pretty, its creation fails. Why ?? Cos when thing
+isn&#8217;t pretty, a false is returned, &amp; this halts the create executation
+chain. The workaround is therefore to return a true always:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">reset_pretty_flag</span>
+</span><span class='line'>  <span class="nb">self</span><span class="o">.</span><span class="n">pretty</span> <span class="o">=</span> <span class="nb">name</span><span class="o">.</span><span class="n">downcase</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s1">&#39;pretty&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="kp">true</span> <span class="c1"># any other non nil/false value will work as well</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To learn more, i strongly encourage a good read on <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html#callbacks-overview">ActiveRecord&#8217;s callbacks
+</a></p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/22/method-aliasing/">Method Aliasing</a></h1>
     
     
