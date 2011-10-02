@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Vim Sub With &amp; Without 'G' - ty's brain dump</title>
+  <title>The Motion That You Must Know - ty's brain dump</title>
   <meta name="author" content="Ng Tze Yang">
   
 
@@ -16,7 +16,7 @@
 
   
   
-  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/">
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/10/02/the-motion-that-you-must-know/">
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -61,7 +61,7 @@
   
   <header>
     
-      <h1 class="entry-title">Vim Sub With &amp; Without 'G'</h1>
+      <h1 class="entry-title">The Motion That You Must Know</h1>
     
     
       <p class="meta">
@@ -74,13 +74,41 @@
 
 
 
-<time datetime="2011-09-23T14:34:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time></p>
+<time datetime="2011-10-02T23:52:00+08:00" pubdate  data-updated="true" >Oct 2<span>nd</span>, 2011</time></p>
     
   </header>
 
 
-<div class="entry-content"><p>Cleaning up
-  -</p>
+<div class="entry-content"><p>Let me tell you, <code>i</code> (&#8220;inside&#8221;) is the motion that you MUST know.</p>
+
+<p>Given <code>"this is awesome"</code>, anywhere from the starting <code>"</code> to
+the ending one, just do a <code>ci"</code>, you can replace anything within
+the quotes. This works for backtick &amp; single-quote char as well,
+but not for other delimiters like <code>"/"</code>, <code>"|"</code>, <code>"\"</code>, &#8230;, etc.</p>
+
+<p>Given <code>%(this is awesome)</code>, doing <code>ci(</code> or <code>ci)</code> works as
+well. In fact, this works equally well for <code>ci&lt;</code>, <code>ci&gt;</code>, <code>ci[</code>,
+<code>ci]</code>, <code>ci{</code> &amp; <code>ci}</code>.</p>
+
+<p>If you have installed the <code>vim-textobj-user</code> &amp;
+<code>vim-textobj-rubyblock</code> plugins:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
+</span><span class='line'>$ git clone https://github.com/kana/vim-textobj-user.git
+</span><span class='line'>$ git clone https://github.com/nelstrom/vim-textobj-rubyblock.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can do <code>cir</code> anywhere from start of a <code>class ... end</code>,
+<code>module ... end</code>, <code>def ... end</code>, <code>do ... end</code>, <code>if ... end</code>, &#8230;
+to replace the contents within.</p>
+
+<p>Last but not least, you may wish to know the <code>a</code> (stands for &#8220;around&#8221;)
+motion as well. Try out <code>ca"</code>, <code>ca(</code>, <code>car</code> &amp; friends.</p>
+
+<p>Have fun !!</p>
 </div>
 
 
@@ -101,7 +129,7 @@
 
 
 
-<time datetime="2011-09-23T14:34:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time>
+<time datetime="2011-10-02T23:52:00+08:00" pubdate  data-updated="true" >Oct 2<span>nd</span>, 2011</time>
       
 
 <span class="categories">
@@ -129,8 +157,8 @@
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'tybraindump';
-  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/';
-  var disqus_url = 'http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/10/02/the-motion-that-you-must-know/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/10/02/the-motion-that-you-must-know/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -151,6 +179,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/02/the-motion-that-you-must-know/">The Motion That You Must Know</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/30/open-file-and-goto-line/">Open File &amp; Goto Line</a>
       </li>
     
@@ -164,10 +196,6 @@
     
       <li class="post">
         <a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/26/enforcing-the-rightful-owner-with-factorygirl/">Enforcing the Rightful Owner With FactoryGirl</a>
       </li>
     
   </ul>

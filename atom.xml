@@ -4,13 +4,51 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-09-30T12:42:34+08:00</updated>
+  <updated>2011-10-03T00:22:11+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
     
   </author>
 
+  
+  <entry>
+    <title>The Motion That You Must Know</title>
+    <link href="http://ngty.github.com/blog/2011/10/02/the-motion-that-you-must-know/"/>
+    <updated>2011-10-02T23:52:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/10/02/the-motion-that-you-must-know</id>
+    <content type="html">&lt;p&gt;Let me tell you, &lt;code&gt;i&lt;/code&gt; (&amp;#8220;inside&amp;#8221;) is the motion that you MUST know.&lt;/p&gt;
+
+&lt;p&gt;Given &lt;code&gt;&quot;this is awesome&quot;&lt;/code&gt;, anywhere from the starting &lt;code&gt;&quot;&lt;/code&gt; to
+the ending one, just do a &lt;code&gt;ci&quot;&lt;/code&gt;, you can replace anything within
+the quotes. This works for backtick &amp;amp; single-quote char as well,
+but not for other delimiters like &lt;code&gt;&quot;/&quot;&lt;/code&gt;, &lt;code&gt;&quot;|&quot;&lt;/code&gt;, &lt;code&gt;&quot;\&quot;&lt;/code&gt;, &amp;#8230;, etc.&lt;/p&gt;
+
+&lt;p&gt;Given &lt;code&gt;%(this is awesome)&lt;/code&gt;, doing &lt;code&gt;ci(&lt;/code&gt; or &lt;code&gt;ci)&lt;/code&gt; works as
+well. In fact, this works equally well for &lt;code&gt;ci&amp;lt;&lt;/code&gt;, &lt;code&gt;ci&amp;gt;&lt;/code&gt;, &lt;code&gt;ci[&lt;/code&gt;,
+&lt;code&gt;ci]&lt;/code&gt;, &lt;code&gt;ci{&lt;/code&gt; &amp;amp; &lt;code&gt;ci}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you have installed the &lt;code&gt;vim-textobj-user&lt;/code&gt; &amp;amp;
+&lt;code&gt;vim-textobj-rubyblock&lt;/code&gt; plugins:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ cd ~/.vim/bundle
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ git clone https://github.com/kana/vim-textobj-user.git
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ git clone https://github.com/nelstrom/vim-textobj-rubyblock.git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;You can do &lt;code&gt;cir&lt;/code&gt; anywhere from start of a &lt;code&gt;class &#8230; end&lt;/code&gt;,
+&lt;code&gt;module &#8230; end&lt;/code&gt;, &lt;code&gt;def &#8230; end&lt;/code&gt;, &lt;code&gt;do &#8230; end&lt;/code&gt;, &lt;code&gt;if &#8230; end&lt;/code&gt;, &amp;#8230;
+to replace the contents within.&lt;/p&gt;
+
+&lt;p&gt;Last but not least, you may wish to know the &lt;code&gt;a&lt;/code&gt; (stands for &amp;#8220;around&amp;#8221;)
+motion as well. Try out &lt;code&gt;ca&quot;&lt;/code&gt;, &lt;code&gt;ca(&lt;/code&gt;, &lt;code&gt;car&lt;/code&gt; &amp;amp; friends.&lt;/p&gt;
+
+&lt;p&gt;Have fun !!&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Open File &amp; Goto Line</title>
@@ -852,16 +890,6 @@ above example) becomes an array that contains all the captured arguments.&lt;/p&
 
 
 
-</content>
-  </entry>
-  
-  <entry>
-    <title>Vim Sub With &amp; Without &#8216;G&#8217;</title>
-    <link href="http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/"/>
-    <updated>2011-09-23T14:34:00+08:00</updated>
-    <id>http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g</id>
-    <content type="html">&lt;p&gt;Cleaning up
-  -&lt;/p&gt;
 </content>
   </entry>
   
