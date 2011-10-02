@@ -4,13 +4,44 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-10-03T00:22:11+08:00</updated>
+  <updated>2011-10-03T00:43:59+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
     
   </author>
 
+  
+  <entry>
+    <title>Quick Commenting of Ruby Code</title>
+    <link href="http://ngty.github.com/blog/2011/10/03/quick-commenting-of-ruby-code/"/>
+    <updated>2011-10-03T00:36:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/10/03/quick-commenting-of-ruby-code</id>
+    <content type="html">&lt;p&gt;What is the fastest way to comment a block of ruby code ?? Sorry,
+i&amp;#8217;m too fast, no time to wait, let&amp;#8217;s install the extra plugins
+1st:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ cd ~/.vim/bundle
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ git clone https://github.com/kana/vim-textobj-user.git
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ https://github.com/nelstrom/vim-textobj-rubyblock.git
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ https://github.com/tomtom/tcomment_vim.git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;To comment an entire method, goto anywhere of that method,
+&lt;code&gt;var&lt;/code&gt; &amp;amp; &lt;code&gt;gc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To comment the inner content of a method, again anywhere of
+that method, &lt;code&gt;vir&lt;/code&gt; &amp;amp; &lt;code&gt;gc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sorry, too fast &amp;amp; too sweet ?? See
+&lt;a href=&quot;http://vimcasts.org/blog/2010/12/a-text-object-for-ruby-blocks&quot;&gt;this vimcast&lt;/a&gt;
+to learn more abt &lt;code&gt;var&lt;/code&gt; &amp;amp; &lt;code&gt;vir&lt;/code&gt; :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>The Motion That You Must Know</title>

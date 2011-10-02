@@ -64,6 +64,59 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/10/03/quick-commenting-of-ruby-code/">Quick Commenting of Ruby Code</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-03T00:36:00+08:00" pubdate  data-updated="true" >Oct 3<span>rd</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>What is the fastest way to comment a block of ruby code ?? Sorry,
+i&#8217;m too fast, no time to wait, let&#8217;s install the extra plugins
+1st:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
+</span><span class='line'>$ git clone https://github.com/kana/vim-textobj-user.git
+</span><span class='line'>$ https://github.com/nelstrom/vim-textobj-rubyblock.git
+</span><span class='line'>$ https://github.com/tomtom/tcomment_vim.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To comment an entire method, goto anywhere of that method,
+<code>var</code> &amp; <code>gc</code>.</p>
+
+<p>To comment the inner content of a method, again anywhere of
+that method, <code>vir</code> &amp; <code>gc</code>.</p>
+
+<p>Sorry, too fast &amp; too sweet ?? See
+<a href="http://vimcasts.org/blog/2010/12/a-text-object-for-ruby-blocks">this vimcast</a>
+to learn more abt <code>var</code> &amp; <code>vir</code> :)</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/10/02/the-motion-that-you-must-know/">The Motion That You Must Know</a></h1>
     
     
@@ -1190,113 +1243,6 @@ may wanna try:</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/22/3-ways-to-define-class-methods/">3 Ways to Define Class Methods</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-22T23:47:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There are 3 ways to create class methods in ruby:</p>
-
-<figure class='code'><figcaption><span>Probably when you just need one</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all</span>
-</span><span class='line'>    <span class="ss">:everything</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">all</span> <span class="c1"># &gt;&gt; :everything</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Probably when you need several</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all</span>
-</span><span class='line'>      <span class="ss">:everything</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">some</span>
-</span><span class='line'>      <span class="ss">:something</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">all</span>  <span class="c1"># &gt;&gt; :everything</span>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">some</span> <span class="c1"># &gt;&gt; :something</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Probably when you are going bananas</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">Thing</span><span class="o">.</span><span class="nf">all</span>
-</span><span class='line'>    <span class="ss">:everything</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">all</span> <span class="c1"># &gt;&gt; :everything</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you work with me &amp; u use the last one, i&#8217;ll hunt u down &amp;
-haunt you :P</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -1325,6 +1271,10 @@ haunt you :P</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/03/quick-commenting-of-ruby-code/">Quick Commenting of Ruby Code</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/10/02/the-motion-that-you-must-know/">The Motion That You Must Know</a>
       </li>
     
@@ -1338,10 +1288,6 @@ haunt you :P</p>
     
       <li class="post">
         <a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a>
       </li>
     
   </ul>
