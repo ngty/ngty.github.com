@@ -38,6 +38,13 @@ the following line to ur `~/.vimrc`:
 nnoremap <C-B> :BufExplorer<cr>
 ```
 
+Alternatively, you may wanna remap how the command `:ls` works by doing
+the following instead:
+
+```
+cabbrev ls :BufExplorer
+```
+
 If you prefer loading `BufExplorer` in horizontal or vertical split, you
 may wanna try:
 
