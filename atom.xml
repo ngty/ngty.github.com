@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-10-05T23:25:58+08:00</updated>
+  <updated>2011-10-06T00:10:31+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -13,13 +13,35 @@
 
   
   <entry>
+    <title>Killing a Screen Window</title>
+    <link href="http://ngty.github.com/blog/2011/10/05/killing-a-screen-window/"/>
+    <updated>2011-10-05T23:42:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/10/05/killing-a-screen-window</id>
+    <content type="html">&lt;p&gt;I use &lt;a href=&quot;http://www.gnu.org/software/screen/&quot;&gt;screen&lt;/a&gt; everyday, yet i
+must admit i&amp;#8217;ve always been only scratching its surface. Today,
+coworker &lt;a href=&quot;https://plus.google.com/105093850720627751966/posts&quot;&gt;+kelvin&lt;/a&gt;
+showed me how to kill a screen window with &lt;code&gt;CTRL-a + k&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;How did i do it in the past ?? Err, this is embarrassing, i usually
+either just type &lt;code&gt;exit&lt;/code&gt; in the window.&lt;/p&gt;
+
+&lt;p&gt;Finally, let&amp;#8217;s say if u start with windows 1$, 2$, 3$ &amp;amp; 4$. When u
+kill 3$, 4$ still retains its &amp;#8220;4&amp;#8221;. To fix this issue, you can
+&lt;code&gt;CTRL-a :number 3&lt;/code&gt; to reset &amp;#8220;4&amp;#8221; to &amp;#8220;3&amp;#8221;.&lt;/p&gt;
+
+&lt;p&gt;PS: a personal todo is to dig into &lt;code&gt;man screen&lt;/code&gt; .. or bug someone to
+do the digging &amp;amp; teach me :)&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
     <title>Removing Untracked Files With Git Clean</title>
     <link href="http://ngty.github.com/blog/2011/10/05/removing-untracked-files-with-git-clean/"/>
     <updated>2011-10-05T23:10:00+08:00</updated>
     <id>http://ngty.github.com/blog/2011/10/05/removing-untracked-files-with-git-clean</id>
     <content type="html">&lt;p&gt;The BEST thing abt pair-programming is that it facilitates knowledge
 diffusion. Just pick up &lt;code&gt;git clean&lt;/code&gt; from coworker
-&lt;a href=&quot;https://plus.google.com/107105912599855998254/about&quot;&gt;+peer&lt;/a&gt;
+&lt;a href=&quot;https://plus.google.com/107105912599855998254/posts&quot;&gt;+peer&lt;/a&gt;
 today.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git clean&lt;/code&gt; makes it real easy to remove untracked files in ur working
