@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Vim Sub With &amp; Without 'G' - ty's brain dump</title>
+  <title>Quick Commenting of Ruby Code - ty's brain dump</title>
   <meta name="author" content="Ng Tze Yang">
   
 
@@ -16,7 +16,7 @@
 
   
   
-  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/">
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/10/03/quick-commenting-of-ruby-code/">
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -61,7 +61,7 @@
   
   <header>
     
-      <h1 class="entry-title">Vim Sub With &amp; Without 'G'</h1>
+      <h1 class="entry-title">Quick Commenting of Ruby Code</h1>
     
     
       <p class="meta">
@@ -74,13 +74,34 @@
 
 
 
-<time datetime="2011-09-23T14:34:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time></p>
+<time datetime="2011-10-03T00:36:00+08:00" pubdate  data-updated="true" >Oct 3<span>rd</span>, 2011</time></p>
     
   </header>
 
 
-<div class="entry-content"><p>Cleaning up
-  -</p>
+<div class="entry-content"><p>What is the fastest way to comment a block of ruby code ?? Sorry,
+i&#8217;m too fast, no time to wait, let&#8217;s install the extra plugins
+1st:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
+</span><span class='line'>$ git clone https://github.com/kana/vim-textobj-user.git
+</span><span class='line'>$ https://github.com/nelstrom/vim-textobj-rubyblock.git
+</span><span class='line'>$ https://github.com/tomtom/tcomment_vim.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To comment an entire method, goto anywhere of that method,
+<code>var</code> &amp; <code>gc</code>.</p>
+
+<p>To comment the inner content of a method, again anywhere of
+that method, <code>vir</code> &amp; <code>gc</code>.</p>
+
+<p>Sorry, too fast &amp; too sweet ?? See
+<a href="http://vimcasts.org/blog/2010/12/a-text-object-for-ruby-blocks">this vimcast</a>
+to learn more abt <code>var</code> &amp; <code>vir</code> :)</p>
 </div>
 
 
@@ -101,7 +122,7 @@
 
 
 
-<time datetime="2011-09-23T14:34:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time>
+<time datetime="2011-10-03T00:36:00+08:00" pubdate  data-updated="true" >Oct 3<span>rd</span>, 2011</time>
       
 
 <span class="categories">
@@ -129,8 +150,8 @@
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'tybraindump';
-  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/';
-  var disqus_url = 'http://ngty.github.com/blog/2011/09/23/vim-sub-with-and-without-g/';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/10/03/quick-commenting-of-ruby-code/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/10/03/quick-commenting-of-ruby-code/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -151,23 +172,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/05/removing-untracked-files-with-git-clean/">Removing Untracked Files With Git Clean</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/03/quick-commenting-of-ruby-code/">Quick Commenting of Ruby Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/02/the-motion-that-you-must-know/">The Motion That You Must Know</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/30/open-file-and-goto-line/">Open File &amp; Goto Line</a>
       </li>
     
       <li class="post">
         <a href="/blog/2011/09/29/flexible-method-arguments-with-the-splat-operator/">Flexible Method Arguments With the Splat Operator</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/26/enforcing-the-rightful-owner-with-factorygirl/">Enforcing the Rightful Owner With FactoryGirl</a>
       </li>
     
   </ul>

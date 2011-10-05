@@ -64,6 +64,159 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/10/05/removing-untracked-files-with-git-clean/">Removing Untracked Files With Git Clean</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-05T23:10:00+08:00" pubdate  data-updated="true" >Oct 5<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The BEST thing abt pair-programming is that it facilitates knowledge
+diffusion. Just pick up <code>git clean</code> from coworker
+<a href="https://plus.google.com/107105912599855998254/about">+peer</a>
+today.</p>
+
+<p><code>git clean</code> makes it real easy to remove untracked files in ur working
+git repo. Files/dirs listed in <code>.gitignore</code> are ignored (as expected),
+only those extra untracked files are cleaned off.</p>
+
+<p>Honestly, nothing beats <code>git help clean</code> if u want to learn more abt it.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/03/quick-commenting-of-ruby-code/">Quick Commenting of Ruby Code</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-03T00:36:00+08:00" pubdate  data-updated="true" >Oct 3<span>rd</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>What is the fastest way to comment a block of ruby code ?? Sorry,
+i&#8217;m too fast, no time to wait, let&#8217;s install the extra plugins
+1st:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
+</span><span class='line'>$ git clone https://github.com/kana/vim-textobj-user.git
+</span><span class='line'>$ https://github.com/nelstrom/vim-textobj-rubyblock.git
+</span><span class='line'>$ https://github.com/tomtom/tcomment_vim.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To comment an entire method, goto anywhere of that method,
+<code>var</code> &amp; <code>gc</code>.</p>
+
+<p>To comment the inner content of a method, again anywhere of
+that method, <code>vir</code> &amp; <code>gc</code>.</p>
+
+<p>Sorry, too fast &amp; too sweet ?? See
+<a href="http://vimcasts.org/blog/2010/12/a-text-object-for-ruby-blocks">this vimcast</a>
+to learn more abt <code>var</code> &amp; <code>vir</code> :)</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/02/the-motion-that-you-must-know/">The Motion That You Must Know</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-02T23:52:00+08:00" pubdate  data-updated="true" >Oct 2<span>nd</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Let me tell you, <code>i</code> (&#8220;inside&#8221;) is the motion that you MUST know.</p>
+
+<p>Given <code>"this is awesome"</code>, anywhere from the starting <code>"</code> to
+the ending one, just do a <code>ci"</code>, you can replace anything within
+the quotes. This works for backtick &amp; single-quote char as well,
+but not for other delimiters like <code>"/"</code>, <code>"|"</code>, <code>"\"</code>, &#8230;, etc.</p>
+
+<p>Given <code>%(this is awesome)</code>, doing <code>ci(</code> or <code>ci)</code> works as
+well. In fact, this works equally well for <code>ci&lt;</code>, <code>ci&gt;</code>, <code>ci[</code>,
+<code>ci]</code>, <code>ci{</code> &amp; <code>ci}</code>.</p>
+
+<p>If you have installed the <code>vim-textobj-user</code> &amp;
+<code>vim-textobj-rubyblock</code> plugins:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
+</span><span class='line'>$ git clone https://github.com/kana/vim-textobj-user.git
+</span><span class='line'>$ git clone https://github.com/nelstrom/vim-textobj-rubyblock.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can do <code>cir</code> anywhere from start of a <code>class ... end</code>,
+<code>module ... end</code>, <code>def ... end</code>, <code>do ... end</code>, <code>if ... end</code>, &#8230;
+to replace the contents within.</p>
+
+<p>Last but not least, you may wish to know the <code>a</code> (stands for &#8220;around&#8221;)
+motion as well. Try out <code>ca"</code>, <code>ca(</code>, <code>car</code> &amp; friends.</p>
+
+<p>Have fun !!</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/30/open-file-and-goto-line/">Open File &amp; Goto Line</a></h1>
     
     
@@ -1056,219 +1209,6 @@ above example) becomes an array that contains all the captured arguments.</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/23/vim-sub-with-and-without-g/">Vim Sub With &amp; Without &#8216;G&#8217;</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-23T14:34:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cleaning up
-  -</p>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/23/yet-another-way-to-access-vim-buffers/">Yet Another Way to Access Vim Buffers</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-23T12:55:00+08:00" pubdate  data-updated="true" >Sep 23<span>rd</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>How do you quickly access a particular buffer (amongst a long list of
-buffers) in vim? For ages, i&#8217;ve been using <code>:ls</code>, followed by <code>:b&lt;id&gt;</code>,
-where <code>&lt;id&gt;</code> is the id of a particular buffer.</p>
-
-<p>Recently, i&#8217;ve discovered yet another way to acheive it using
-<a href="http://www.vim.org/scripts/script.php?script_id=42"><code>BufExplorer</code></a>,
-to install it, download the
-<a href="http://www.vim.org/scripts/script.php?script_id=42">latest version</a>
-&amp; save it to <code>~/.vim/bundle</code>, then:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.vim/bundle
-</span><span class='line'>$ unzip bufexplorer.zip</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Restart your vim, open several files, &amp; try <code>\be</code> (backslash + b + e),
-you are then presented with <code>BufExplorer</code>, &amp; within it, u can goto a
-specific buffer with:</p>
-
-<ul>
-<li>search with <code>/</code>, followed by <code>enter</code>, or</li>
-<li>goto that line with <code>:&lt;lineno&gt;</code>, followed by <code>enter</code>, or</li>
-<li>simply <code>:b&lt;id&gt;</code></li>
-</ul>
-
-
-<p>If you want to be able to goto <code>BufExplorer</code> by doing <code>CTRL-b</code>, just add
-the following line to ur <code>~/.vimrc</code>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>nnoremap &lt;C-B&gt; :BufExplorer&lt;cr&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you prefer loading <code>BufExplorer</code> in horizontal or vertical split, you
-may wanna try:</p>
-
-<ul>
-<li><code>\bs</code> (backslash + b + s) for horizontal split</li>
-<li><code>\bv</code> (backslash + b + s) for vertical split</li>
-</ul>
-
-
-<p>Pick the one u like &amp; have fun !!</p>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/22/3-ways-to-define-class-methods/">3 Ways to Define Class Methods</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-22T23:47:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There are 3 ways to create class methods in ruby:</p>
-
-<figure class='code'><figcaption><span>Probably when you just need one</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all</span>
-</span><span class='line'>    <span class="ss">:everything</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">all</span> <span class="c1"># &gt;&gt; :everything</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Probably when you need several</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all</span>
-</span><span class='line'>      <span class="ss">:everything</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">some</span>
-</span><span class='line'>      <span class="ss">:something</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">all</span>  <span class="c1"># &gt;&gt; :everything</span>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">some</span> <span class="c1"># &gt;&gt; :something</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Probably when you are going bananas</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">Thing</span><span class="o">.</span><span class="nf">all</span>
-</span><span class='line'>    <span class="ss">:everything</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Thing</span><span class="o">.</span><span class="n">all</span> <span class="c1"># &gt;&gt; :everything</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you work with me &amp; u use the last one, i&#8217;ll hunt u down &amp;
-haunt you :P</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -1297,23 +1237,23 @@ haunt you :P</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/05/removing-untracked-files-with-git-clean/">Removing Untracked Files With Git Clean</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/03/quick-commenting-of-ruby-code/">Quick Commenting of Ruby Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/02/the-motion-that-you-must-know/">The Motion That You Must Know</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/09/30/open-file-and-goto-line/">Open File &amp; Goto Line</a>
       </li>
     
       <li class="post">
         <a href="/blog/2011/09/29/flexible-method-arguments-with-the-splat-operator/">Flexible Method Arguments With the Splat Operator</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/09/26/enforcing-the-rightful-owner-with-factorygirl/">Enforcing the Rightful Owner With FactoryGirl</a>
       </li>
     
   </ul>
