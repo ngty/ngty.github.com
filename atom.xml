@@ -4,13 +4,59 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-10-06T00:10:31+08:00</updated>
+  <updated>2011-10-06T00:39:18+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
     
   </author>
 
+  
+  <entry>
+    <title>Installing The Unofficial Byobu in Archlinux</title>
+    <link href="http://ngty.github.com/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux/"/>
+    <updated>2011-10-06T00:20:00+08:00</updated>
+    <id>http://ngty.github.com/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux</id>
+    <content type="html">&lt;p&gt;If you love &lt;a href=&quot;https://launchpad.net/byobu&quot;&gt;byobu&lt;/a&gt;, &amp;amp; u just decided
+to join the &lt;a href=&quot;http://www.archlinux.org&quot;&gt;archers&lt;/a&gt;, you probably will
+miss it as you can&amp;#8217;t simply do &lt;code&gt;sudo pacman -S byobu&lt;/code&gt;, since the
+package isn&amp;#8217;t available on any of the offcial repositories.&lt;/p&gt;
+
+&lt;p&gt;DO NOT DESPAIR, there is an unofficial package at the
+&lt;a href=&quot;http://aur.archlinux.org/&quot;&gt;aur&lt;/a&gt; (Arch User Repository). Just goto
+&lt;a href=&quot;http://aur.archlinux.org/&quot;&gt;aur&lt;/a&gt; to search for it, &amp;amp; copy the link
+to the tarball, then:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;3&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;4&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;5&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ cd /tmp
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ wget http://aur.archlinux.org/packages/by/byobu/byobu.tar.gz
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ tar zxf byobu.tar.gz
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ cd byobu
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ makepkg&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;Depending on how mature ur system is, you may be prompted to
+manually install some extra dependencies, note these &amp;amp; run:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ sudo pacman -S &amp;lt;DEPENDENCIES&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;With all dependencies installed, then:&lt;/p&gt;
+
+&lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
+&lt;span class=&#8217;line-number&#8217;&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;$ makepkg
+&lt;/span&gt;&lt;span class=&#8217;line&#8217;&gt;$ pacman -U *.xz&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;And you can start to rock-&amp;amp;-roll :)&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Killing a Screen Window</title>

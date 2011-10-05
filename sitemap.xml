@@ -83,11 +83,17 @@
         <lastmod>2011-10-06T00:09:40+08:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://ngty.github.com/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux/
+        </loc>
+        <lastmod>2011-10-06T00:39:18+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://ngty.github.com/</loc>
-        <lastmod>2011-10-06T00:10:30+08:00</lastmod>
+        <lastmod>2011-10-06T00:39:18+08:00</lastmod>
     </url>
     <url>
         <loc>http://ngty.github.com/blog/archives/</loc>
-        <lastmod>2011-10-06T00:10:30+08:00</lastmod>
+        <lastmod>2011-10-06T00:39:18+08:00</lastmod>
     </url>
 </urlset>

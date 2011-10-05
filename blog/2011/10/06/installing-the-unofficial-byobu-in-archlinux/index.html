@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Method Aliasing - ty's brain dump</title>
+  <title>Installing The Unofficial Byobu in Archlinux - ty's brain dump</title>
   <meta name="author" content="Ng Tze Yang">
   
 
@@ -16,7 +16,7 @@
 
   
   
-  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/22/method-aliasing/">
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux/">
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -61,7 +61,7 @@
   
   <header>
     
-      <h1 class="entry-title">Method Aliasing</h1>
+      <h1 class="entry-title">Installing the Unofficial Byobu in Archlinux</h1>
     
     
       <p class="meta">
@@ -74,64 +74,49 @@
 
 
 
-<time datetime="2011-09-22T22:26:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time></p>
+<time datetime="2011-10-06T00:20:00+08:00" pubdate  data-updated="true" >Oct 6<span>th</span>, 2011</time></p>
     
   </header>
 
 
-<div class="entry-content"><p>Method aliasing is what every budding rubyists should pick up.
-This is done using <code>Module#alias_method</code>:</p>
+<div class="entry-content"><p>If you love <a href="https://launchpad.net/byobu">byobu</a>, &amp; u just decided
+to join the <a href="http://www.archlinux.org">archers</a>, you probably will
+miss it as you can&#8217;t simply do <code>sudo pacman -S byobu</code>, since the
+package isn&#8217;t available on any of the offcial repositories.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>DO NOT DESPAIR, there is an unofficial package at the
+<a href="http://aur.archlinux.org/">aur</a> (Arch User Repository). Just goto
+<a href="http://aur.archlinux.org/">aur</a> to search for it, &amp; copy the link
+to the tarball, then:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="p">;</span> <span class="ss">:xl</span><span class="p">;</span> <span class="k">end</span>
-</span><span class='line'>  <span class="n">alias_method</span> <span class="ss">:mass</span><span class="p">,</span> <span class="ss">:size</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">thing</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">size</span> <span class="c1"># &gt;&gt; xl</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">mass</span> <span class="c1"># &gt;&gt; xl</span>
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd /tmp
+</span><span class='line'>$ wget http://aur.archlinux.org/packages/by/byobu/byobu.tar.gz
+</span><span class='line'>$ tar zxf byobu.tar.gz
+</span><span class='line'>$ cd byobu
+</span><span class='line'>$ makepkg</span></code></pre></td></tr></table></div></figure>
 
 
-<p>To say that it is simple aliasing is abit deceiving. Under the hood,
-ruby creates a copy of the original method <code>Thing#size</code>, thus, even
-if you change the original method, the new method <code>Thing#mass</code> still
-points to the same method. Here&#8217;s an extension of the above example:</p>
+<p>Depending on how mature ur system is, you may be prompted to
+manually install some extra dependencies, note these &amp; run:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo pacman -S &lt;DEPENDENCIES&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With all dependencies installed, then:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="c1"># Redefining the original method</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="p">;</span> <span class="ss">:xxl</span><span class="p">;</span> <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">thing</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">size</span> <span class="c1"># &gt;&gt; xxl</span>
-</span><span class='line'><span class="n">thing</span><span class="o">.</span><span class="n">mass</span> <span class="c1"># &gt;&gt; xl</span>
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ makepkg
+</span><span class='line'>$ pacman -U *.xz</span></code></pre></td></tr></table></div></figure>
 
 
-<p>It is important to note that the last technique isn&#8217;t encouraged in
-proper software engineering, yet it can really be useful when u need
-a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
-
-<p>If u have some time to spare, you should read more abt
-<a href="http://yehudakatz.com/2009/03/06/alias_method_chain-in-models">yehuda&#8217;s case against rails&#8217; <code>alias_method_chain</code>
-</a>.</p>
+<p>And you can start to rock-&amp;-roll :)</p>
 </div>
 
 
@@ -152,12 +137,12 @@ a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
 
 
 
-<time datetime="2011-09-22T22:26:00+08:00" pubdate  data-updated="true" >Sep 22<span>nd</span>, 2011</time>
+<time datetime="2011-10-06T00:20:00+08:00" pubdate  data-updated="true" >Oct 6<span>th</span>, 2011</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
+    <a class='category' href='/blog/categories/archlinux/'>archlinux</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
   
 </span>
 
@@ -180,8 +165,8 @@ a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'tybraindump';
-  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/22/method-aliasing/';
-  var disqus_url = 'http://ngty.github.com/blog/2011/09/22/method-aliasing/';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
