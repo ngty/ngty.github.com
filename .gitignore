@@ -1,9 +1,10 @@
 .bundle
 .DS_Store
-.*.swp
+.*.sw*
 .sass-cache
 .gist-cache
 .pygments-cache
+tmp
 _deploy
 public
 sass.old
