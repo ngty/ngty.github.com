@@ -10,7 +10,7 @@ categories:
 
 The BEST thing abt pair-programming is that it facilitates knowledge
 diffusion. Just pick up `git clean` from coworker
-[+peer](https://plus.google.com/107105912599855998254/about)
+[+peer](https://plus.google.com/107105912599855998254/posts)
 today.
 
 `git clean` makes it real easy to remove untracked files in ur working
