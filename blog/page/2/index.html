@@ -64,6 +64,76 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-26T23:10:00+08:00" pubdate  data-updated="true" >Sep 26<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>What do you get if u invoke a method with the wrong number of arguments ??
+It throws in ur face <code>ArgumentError</code> &#8230; it doesn&#8217;t try to be polite, you
+are at fault since you are the one that breaches the contract !!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">m0</span>
+</span><span class='line'>  <span class="ss">:ok</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">m0</span>    <span class="c1"># &gt;&gt; :ok</span>
+</span><span class='line'><span class="n">m0</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># &gt;&gt; (...) wrong number of arguments (1 for 0) (ArgumentError)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It tells you that it is expecting <code>0 argument</code>, yet you have passed it
+<code>1 argument</code>. Let&#8217;s have another one:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">m2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="ss">:ok</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">m2</span>       <span class="c1"># &gt;&gt; (...) wrong number of arguments (0 for 2) (ArgumentError)</span>
+</span><span class='line'><span class="n">m2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># &gt;&gt; (...) wrong number of arguments (1 for 2) (ArgumentError)</span>
+</span><span class='line'><span class="n">m2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># &gt;&gt; :ok</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty readable rite ?</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/26/enforcing-the-rightful-owner-with-factorygirl/">Enforcing the Rightful Owner With FactoryGirl</a></h1>
     
     
@@ -999,173 +1069,10 @@ various commit messages, to writing a brand new message</li>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/20/module-number-attr-accessor-and-friends/">Module#attr_accessor &amp; Friends</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-20T23:55:00+08:00" pubdate  data-updated="true" >Sep 20<span>th</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Have u ever find urself writing simple reader &amp; writer like this:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="o">=</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-</span><span class='line'>    <span class="vi">@size</span> <span class="o">=</span> <span class="n">size</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span>
-</span><span class='line'>    <span class="vi">@size</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You should probably be using <code>Module#attr_accessor</code>:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:size</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">t</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">t</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="ss">:xl</span>
-</span><span class='line'><span class="nb">puts</span> <span class="n">t</span><span class="o">.</span><span class="n">size</span> <span class="c1"># &gt;&gt; xl</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If u want to keep the writer private, while still having the reader as public,
-you can do the following:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Thing</span>
-</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:size</span>
-</span><span class='line'>  <span class="kp">private</span> <span class="ss">:size</span><span class="o">=</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">cheat</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">t</span> <span class="o">=</span> <span class="no">Thing</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="c1">#puts t.size = :xl # &gt;&gt; NoMethodError</span>
-</span><span class='line'><span class="n">t</span><span class="o">.</span><span class="n">cheat</span><span class="p">(</span><span class="ss">:xl</span><span class="p">)</span>
-</span><span class='line'><span class="nb">puts</span> <span class="n">t</span><span class="o">.</span><span class="n">size</span>        <span class="c1"># &gt;&gt; xl</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Besides <code>Module#attr_accessor</code>, we also have <code>Module#attr_reader</code> &amp;
-<code>Module#attr_writer</code>, each generating just the reader/writer that u need.</p>
-
-<p>Using the above accessor generators not only improve the readability of ur
-code, the generated accessors are also more performant. Here&#8217;s a quick
-benchmark:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AA</span>
-</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:size</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">BB</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span>        <span class="p">;</span> <span class="vi">@size</span>        <span class="p">;</span> <span class="k">end</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">size</span><span class="o">=</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="p">;</span> <span class="vi">@size</span> <span class="o">=</span> <span class="n">size</span> <span class="p">;</span> <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;benchmark&#39;</span>
-</span><span class='line'><span class="no">Benchmark</span><span class="o">.</span><span class="n">bm</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-</span><span class='line'>  <span class="o">[</span><span class="no">AA</span><span class="p">,</span> <span class="no">BB</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">klass</span><span class="o">|</span>
-</span><span class='line'>    <span class="n">x</span><span class="o">.</span><span class="n">report</span> <span class="k">do</span>
-</span><span class='line'>      <span class="mi">1000000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">aa</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'>        <span class="n">aa</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span class='line'>        <span class="n">aa</span><span class="o">.</span><span class="n">size</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">#&gt;&gt; user     system      total        real</span>
-</span><span class='line'><span class="c1">#&gt;&gt; 0.410000   0.000000   0.410000 (  0.412785)</span>
-</span><span class='line'><span class="c1">#&gt;&gt; 0.450000   0.000000   0.450000 (  0.456264)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The difference is there, but it isn&#8217;t too much for just a pair of accessors.
-It would be more significant as the number of accessors increases. Anyway,
-i&#8217;ll leave it as an exercise for the reader.</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Archive</a>
     
@@ -1192,6 +1099,10 @@ i&#8217;ll leave it as an exercise for the reader.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/10/oop-vs-dop/">OOP vs DOP</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/10/06/a-little-bit-of-sed-kungfu/">A Little Bit of Sed Kungfu</a>
       </li>
     
@@ -1205,10 +1116,6 @@ i&#8217;ll leave it as an exercise for the reader.</p>
     
       <li class="post">
         <a href="/blog/2011/10/05/removing-untracked-files-with-git-clean/">Removing Untracked Files With Git Clean</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/03/quick-commenting-of-ruby-code/">Quick Commenting of Ruby Code</a>
       </li>
     
   </ul>
