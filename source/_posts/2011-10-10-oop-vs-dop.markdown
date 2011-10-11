@@ -108,9 +108,9 @@ be aware of:
 Can we make it better ?? Of couse we can, let's try the following
 more OOP approach:
 
-## 3) The OOP way:
+## 3) The OOP Way
 
-With the original modelling:
+With the original modelling,
 
 ```
 physics_class.students << alice
