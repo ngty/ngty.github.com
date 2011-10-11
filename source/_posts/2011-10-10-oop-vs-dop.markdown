@@ -75,7 +75,7 @@ side.
 
 Let's improve on this DOP way by trying the hybrid approach.
 
-## 2) The hybrid way
+## 2) The Hybrid Way
 
 Using the original modelling, we do:
 
