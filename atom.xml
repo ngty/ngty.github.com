@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-10-11T14:03:03+08:00</updated>
+  <updated>2011-10-11T14:06:18+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -140,9 +140,9 @@ be aware of:&lt;/p&gt;
 &lt;p&gt;Can we make it better ?? Of couse we can, let&amp;#8217;s try the following
 more OOP approach:&lt;/p&gt;
 
-&lt;h2&gt;3) The OOP way:&lt;/h2&gt;
+&lt;h2&gt;3) The OOP Way&lt;/h2&gt;
 
-&lt;p&gt;With the original modelling:&lt;/p&gt;
+&lt;p&gt;With the original modelling,&lt;/p&gt;
 
 &lt;figure class=&#8217;code&#8217;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class=&#8217;line-number&#8217;&gt;1&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;&lt;code class=&#8221;&gt;&lt;span class=&#8217;line&#8217;&gt;physics_class.students &amp;lt;&amp;lt; alice&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;
