@@ -1,0 +1,134 @@
+---
+layout: post
+title: "OOP vs DOP"
+date: 2011-10-10 09:06
+comments: true
+categories: 
+- design
+- ruby
+- rails
+- activerecord
+---
+
+One [anti-pattern](http://en.wikipedia.org/wiki/Anti-pattern)
+that i come across very frequently while doing rails (& activerecord)
+related work is that alot of times, people tend to do DOP
+(database oriented programming), when they should instead be doing OOP
+(object oriented programming).
+
+Most of the applications we write require support for:
+
+* modelling our business knowledge, AND
+* persisting the state of business entities
+
+In most rails apps, the above functionalities are provided by the model
+layer, which in turn is powered by the orm framework (usually activerecord).
+It is important to bear in mind the priority ~ the modelling of business
+knowledge. Persistence gets into the equation only when we want to
+persist the application's state.
+
+> By placing higher priority on business modelling & less on persistence,
+> we better allocate our resources to tackle changes in business logic,
+> abstracting & minimising changes required on (or necessitated by)
+> the persistence layer.
+
+Let's set the stage for the classic join-model example of students
+attending a class, & how DOP & OOP tackle fare against each other:
+
+```
+class Clazz
+  has_many :participations
+  has_many :students, :through => :participations
+end
+
+class Student
+  has_many :participations
+  has_many :clazzes, :through => :participations
+end
+
+class Participation
+  belongs_to :clazz
+  belongs_to :student
+end
+```
+
+## 1) The DOP Way
+
+Base on the original modelling:
+
+```
+Participation.create(:clazz => physics_class, :student => alice)
+```
+
+What if there comes a day we need to rename `Participation` to
+`ClazzParticipation` ? Besides renaming the class `Participation`,
+you also need to:
+
+* change the above `Participation.create` to `ClazzParticipation.create`
+* declare the `:class_name` for `Student#participations` &
+  `Clazz#participations`
+
+Changes necessitated by change in business requirements are inevitable
+in software engineering, but the above changes are unnecesssary & as
+the cause comes from the persistent side, rather than the business
+side.
+
+Let's improve on this DOP way by trying the hybrid approach.
+
+## 2) The hybrid way
+
+Using the original modelling, we do:
+
+```
+physics_class.participations.create(:student => alice)
+```
+
+This is better than the pure DOP approach. When renaming of
+`Participation` to `ClazzParticipation` is required, besides the
+obvious renaming of the class `Participation`, you just need to:
+
+* declare the `:class_name` for `Student#participations` &
+  `Clazz#participations`
+
+Pretty good, but bare in mind that this approach is forcing
+other engineers to be aware that:
+
+> in order to add **alice** (student) to **physics_class**
+> (class), you create a participation for **alice** w.r.t
+> **physics_class**
+
+Clearly, it is still very database centric. This approach misses
+the essence of OOP ~ encapsulation. It exposes & forces anyone to
+be aware of:
+
+* the underlying join association `Clazz#participations`, AND
+* you have to call `Clazz#participations.create`, AND
+* you have to pass the argument `:student => alice`
+
+Can we make it better ?? Of couse we can, let's try the following
+more OOP approach:
+
+## 3) The OOP way:
+
+With the original modelling:
+
+```
+physics_class.students << alice
+```
+
+Read:
+
+> in order to add **alice** (student) to **physics_class**
+> (class), you just add **alice** to its list of students
+
+That's it !! If renaming of `Participation` to `ClazzParticipation`
+is required, the changes required is the same as the above hybrid
+approach.
+
+## Summing Up
+
+How do you know u are doing DOP or OOP ? I guess if you are
+doing good OOP,
+
+> the code should be so simple that it just reads :)
+
