@@ -4,7 +4,7 @@
   <title>ty&#8217;s brain dump</title>
   <link href="http://ngty.github.com/atom.xml" rel="self"/>
   <link href="http://ngty.github.com/"/>
-  <updated>2011-10-12T15:57:39+08:00</updated>
+  <updated>2011-10-12T16:01:07+08:00</updated>
   <id>http://ngty.github.com/</id>
   <author>
     <name>Ng Tze Yang</name>
@@ -17,8 +17,8 @@
     <link href="http://ngty.github.com/blog/2011/10/12/falling-in-love-with-ars-scoping/"/>
     <updated>2011-10-12T15:10:00+08:00</updated>
     <id>http://ngty.github.com/blog/2011/10/12/falling-in-love-with-ars-scoping</id>
-    <content type="html">&lt;p&gt;If you do rails, you should fall in love with scoping, as it
-can really boast ur activerecord-fu.&lt;/p&gt;
+    <content type="html">&lt;p&gt;If you do activerecord, you should fall in love with scoping, as it
+can really boast ur AR-fu.&lt;/p&gt;
 
 &lt;p&gt;Here&amp;#8217;s an example:&lt;/p&gt;
 
