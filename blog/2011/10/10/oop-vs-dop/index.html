@@ -107,7 +107,7 @@ the persistence layer.</p></blockquote>
 <p>Let&#8217;s set the stage for the classic join-model example of students
 attending a class, &amp; how DOP &amp; OOP tackle fare against each other:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -121,28 +121,30 @@ attending a class, &amp; how DOP &amp; OOP tackle fare against each other:</p>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class Clazz
-</span><span class='line'>  has_many :participations
-</span><span class='line'>  has_many :students, :through =&gt; :participations
-</span><span class='line'>end
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Clazz</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:participations</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:students</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:participations</span>
+</span><span class='line'><span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'>class Student
-</span><span class='line'>  has_many :participations
-</span><span class='line'>  has_many :clazzes, :through =&gt; :participations
-</span><span class='line'>end
+</span><span class='line'><span class="k">class</span> <span class="nc">Student</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:participations</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:clazzes</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:participations</span>
+</span><span class='line'><span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'>class Participation
-</span><span class='line'>  belongs_to :clazz
-</span><span class='line'>  belongs_to :student
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="k">class</span> <span class="nc">Participation</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:clazz</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:student</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>1) The DOP Way</h2>
 
 <p>Base on the original modelling:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Participation.create(:clazz =&gt; physics_class, :student =&gt; alice)</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Participation</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:clazz</span> <span class="o">=&gt;</span> <span class="n">physics_class</span><span class="p">,</span> <span class="ss">:student</span> <span class="o">=&gt;</span> <span class="n">alice</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>What if there comes a day we need to rename <code>Participation</code> to
@@ -167,8 +169,9 @@ side.</p>
 
 <p>Using the original modelling, we do:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>physics_class.participations.create(:student =&gt; alice)</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">physics_class</span><span class="o">.</span><span class="n">participations</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:student</span> <span class="o">=&gt;</span> <span class="n">alice</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>This is better than the pure DOP approach. When renaming of
@@ -206,8 +209,9 @@ more OOP approach:</p>
 
 <p>With the original modelling,</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>physics_class.students &lt;&lt; alice</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">physics_class</span><span class="o">.</span><span class="n">students</span> <span class="o">&lt;&lt;</span> <span class="n">alice</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Read:</p>
@@ -295,6 +299,10 @@ doing good OOP,</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR's Scoping</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/10/10/oop-vs-dop/">OOP vs DOP</a>
       </li>
     
@@ -308,10 +316,6 @@ doing good OOP,</p>
     
       <li class="post">
         <a href="/blog/2011/10/05/killing-a-screen-window/">Killing a Screen Window</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/05/removing-untracked-files-with-git-clean/">Removing Untracked Files With Git Clean</a>
       </li>
     
   </ul>

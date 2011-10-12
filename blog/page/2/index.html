@@ -64,6 +64,157 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-28T23:14:00+08:00" pubdate  data-updated="true" >Sep 28<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As you know, ruby always tries hard to get out of the programmer&#8217;s
+way most of the time. One good example is when u invoke a method
+that doesn&#8217;t require any argument:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span>
+</span><span class='line'>  <span class="ss">:ok</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mm</span>   <span class="c1"># &gt;&gt; :ok</span>
+</span><span class='line'><span class="n">mm</span><span class="p">()</span> <span class="c1"># &gt;&gt; :ok</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Almost always, to invoke <code>mm</code>, <code>mm</code> is preferred over <code>mm()</code>, doing
+it the <code>mm()</code> way is so un-rubyish. Yet this flexibility tripped us
+over today, consider the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When we ran the above spec, we get
+<code>undefined method 'macho' for "alien":String (NoMethodError)</code> .. why ??</p>
+
+<p>Here&#8217;s our intended behaviour:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines alien()</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines robot()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span>  <span class="c1"># set local var thing</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>      <span class="c1"># defines subject() to return thing()</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span>  <span class="c1"># defines thing() to return the evaluate alien() or robot()</span>
+</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is what happened instead:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines alien()</span>
+</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines robot()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span> <span class="c1"># set local var thing</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>     <span class="c1"># ** defines subject() to return the local var thing</span>
+</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># ** defines thing() which never gets invoked</span>
+</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To fix the problem, we can either:</p>
+
+<ul>
+<li><p>avoid confusing names by renaming the local variable <code>thing</code> to
+<code>_thing</code> &amp; amend all its intended usage accordingly (which include
+<code>let(:thing) { send(thing) }</code> to <code>let(:thing) { send(_thing) }</code>), OR</p></li>
+<li><p>be explicte when invoking method by rewriting
+<code>let(:subject) { thing }</code> as <code>let(:subject) { thing() }</code></p></li>
+</ul>
+
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a></h1>
     
     
@@ -989,86 +1140,6 @@ a quick hack on somebody&#8217;s code, just to patch &amp; get things done.</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/">Interactive Git Rebase With Reword &amp; Fixup</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-21T20:32:00+08:00" pubdate  data-updated="true" >Sep 21<span>st</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>It is no secret that i&#8217;m a fan of interactive git rebase. It gives me
-the power to clean up the numerous small intermediate commits that i
-did so frequently while in the course of completing a feature (or bugfix).
-In the process, i usually do quite abit of squashing, reshuffling &amp;
-rewording, such that the eventual commits i push upstream are
-well-organized &amp; each commit is meaningful to the rest of the team.</p>
-
-<p>Usually i use <code>pick</code> &amp; <code>squash</code> to achieve the compressing of different
-commits. Recently, my coworker showed me an alternative, which uses <code>reword</code>
-&amp; <code>fixup</code>.  Here&#8217;s how it can be done:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rebase -i &lt;branch></span></code></pre></td></tr></table></div></figure>
-
-
-<p>Instead of doing:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pick 6354612 WIP ~ monkey patched to fix bug#234.
-</span><span class='line'>squash 4de4f66 WIP ~ conform to recommended way of patching.
-</span><span class='line'>squash 3545b15 WIP ~ fixed incomplete removal of hackish patch.
-</span><span class='line'>squash 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Do this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>reword 6354612 WIP ~ monkey patched to fix bug#234.
-</span><span class='line'>fixup 4de4f66 WIP ~ conform to recommended way of patching.
-</span><span class='line'>fixup 3545b15 WIP ~ fixed incomplete removal of hackish patch.
-</span><span class='line'>fixup 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Of course, the 2 approaches are different:</p>
-
-<ul>
-<li><code>reword</code> &amp; <code>fixup</code>, u get to either keep the 1st commit message,
-or rephrase it</li>
-<li><code>pick</code> &amp; <code>squash</code>, u have more choices ~ from keeping all of the
-various commit messages, to writing a brand new message</li>
-</ul>
-
-
-<p>For me, i almost always want the effect of <code>reword</code> &amp; <code>fixup</code>.</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -1099,6 +1170,10 @@ various commit messages, to writing a brand new message</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR&#8217;s Scoping</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/10/10/oop-vs-dop/">OOP vs DOP</a>
       </li>
     
@@ -1112,10 +1187,6 @@ various commit messages, to writing a brand new message</li>
     
       <li class="post">
         <a href="/blog/2011/10/05/killing-a-screen-window/">Killing a Screen Window</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/05/removing-untracked-files-with-git-clean/">Removing Untracked Files With Git Clean</a>
       </li>
     
   </ul>
