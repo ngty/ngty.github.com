@@ -35,7 +35,7 @@ persist the application's state.
 Let's set the stage for the classic join-model example of students
 attending a class, & how DOP & OOP tackle fare against each other:
 
-```
+``` ruby
 class Clazz
   has_many :participations
   has_many :students, :through => :participations
@@ -56,7 +56,7 @@ end
 
 Base on the original modelling:
 
-```
+``` ruby
 Participation.create(:clazz => physics_class, :student => alice)
 ```
 
@@ -79,7 +79,7 @@ Let's improve on this DOP way by trying the hybrid approach.
 
 Using the original modelling, we do:
 
-```
+``` ruby
 physics_class.participations.create(:student => alice)
 ```
 
@@ -112,7 +112,7 @@ more OOP approach:
 
 With the original modelling,
 
-```
+``` ruby
 physics_class.students << alice
 ```
 
