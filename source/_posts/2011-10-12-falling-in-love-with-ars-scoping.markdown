@@ -9,8 +9,8 @@ categories:
 - activerecord
 ---
 
-If you do rails, you should fall in love with scoping, as it
-can really boast ur activerecord-fu.
+If you do activerecord, you should fall in love with scoping, as it
+can really boast ur AR-fu.
 
 Here's an example:
 
