@@ -58,8 +58,9 @@ kitty.shirts     # all shirts
 kitty.red_shirts # all red shirts
 ```
 
-Hmmm, duplicated detected, but not so bad .. how abt i want to
-retrieve all red shirts ? AR supports via `scope`:
+Hmmm, duplication detected, but not so bad (yet) .. how abt i
+want to retrieve all red shirts ? AR supports this via the
+`scope` declarative:
 
 ``` ruby
 class Shirt
