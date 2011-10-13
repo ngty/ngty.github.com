@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>OOP vs DOP - ty's brain dump</title>
+  <meta name="author" content="Ng Tze Yang">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/10/10/oop-vs-dop/">
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ty's brain dump" type="application/atom+xml"/>
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">ty's brain dump</a></h1>
+  
+    <h2>~ non-optimized bits & pieces</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:ngty.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Index</a></li>
+  <li><a href="/blog/archives">Archive</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">OOP vs DOP</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-10T09:06:00+08:00" pubdate  data-updated="true" >Oct 10<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+<div class="entry-content"><p>One <a href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>
+that i come across very frequently while doing rails (&amp; activerecord)
+related work is that alot of times, people tend to do DOP
+(database oriented programming), when they should instead be doing OOP
+(object oriented programming).</p>
+
+<p>Most of the applications we write require support for:</p>
+
+<ul>
+<li>modelling our business knowledge, AND</li>
+<li>persisting the state of business entities</li>
+</ul>
+
+
+<p>In most rails apps, the above functionalities are provided by the model
+layer, which in turn is powered by the orm framework (usually activerecord).
+It is important to bear in mind the priority ~ the modelling of business
+knowledge. Persistence gets into the equation only when we want to
+persist the application&#8217;s state.</p>
+
+<blockquote><p>By placing higher priority on business modelling &amp; less on persistence,
+we better allocate our resources to tackle changes in business logic,
+abstracting &amp; minimising changes required on (or necessitated by)
+the persistence layer.</p></blockquote>
+
+<p>Let&#8217;s set the stage for the classic join-model example of students
+attending a class, &amp; how DOP &amp; OOP tackle fare against each other:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Clazz</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:participations</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:students</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:participations</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Student</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:participations</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:clazzes</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:participations</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Participation</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:clazz</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:student</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>1) The DOP Way</h2>
+
+<p>Base on the original modelling:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Participation</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:clazz</span> <span class="o">=&gt;</span> <span class="n">physics_class</span><span class="p">,</span> <span class="ss">:student</span> <span class="o">=&gt;</span> <span class="n">alice</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What if there comes a day we need to rename <code>Participation</code> to
+<code>ClazzParticipation</code> ? Besides renaming the class <code>Participation</code>,
+you also need to:</p>
+
+<ul>
+<li>change the above <code>Participation.create</code> to <code>ClazzParticipation.create</code></li>
+<li>declare the <code>:class_name</code> for <code>Student#participations</code> &amp;
+<code>Clazz#participations</code></li>
+</ul>
+
+
+<p>Changes necessitated by change in business requirements are inevitable
+in software engineering, but the above changes are unnecesssary &amp; as
+the cause comes from the persistent side, rather than the business
+side.</p>
+
+<p>Let&#8217;s improve on this DOP way by trying the hybrid approach.</p>
+
+<h2>2) The Hybrid Way</h2>
+
+<p>Using the original modelling, we do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">physics_class</span><span class="o">.</span><span class="n">participations</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:student</span> <span class="o">=&gt;</span> <span class="n">alice</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is better than the pure DOP approach. When renaming of
+<code>Participation</code> to <code>ClazzParticipation</code> is required, besides the
+obvious renaming of the class <code>Participation</code>, you just need to:</p>
+
+<ul>
+<li>declare the <code>:class_name</code> for <code>Student#participations</code> &amp;
+<code>Clazz#participations</code></li>
+</ul>
+
+
+<p>Pretty good, but bare in mind that this approach is forcing
+other engineers to be aware that:</p>
+
+<blockquote><p>in order to add <strong>alice</strong> (student) to <strong>physics_class</strong>
+(class), you create a participation for <strong>alice</strong> w.r.t
+<strong>physics_class</strong></p></blockquote>
+
+<p>Clearly, it is still very database centric. This approach misses
+the essence of OOP ~ encapsulation. It exposes &amp; forces anyone to
+be aware of:</p>
+
+<ul>
+<li>the underlying join association <code>Clazz#participations</code>, AND</li>
+<li>you have to call <code>Clazz#participations.create</code>, AND</li>
+<li>you have to pass the argument <code>:student =&gt; alice</code></li>
+</ul>
+
+
+<p>Can we make it better ?? Of couse we can, let&#8217;s try the following
+more OOP approach:</p>
+
+<h2>3) The OOP Way</h2>
+
+<p>With the original modelling,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">physics_class</span><span class="o">.</span><span class="n">students</span> <span class="o">&lt;&lt;</span> <span class="n">alice</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Read:</p>
+
+<blockquote><p>in order to add <strong>alice</strong> (student) to <strong>physics_class</strong>
+(class), you just add <strong>alice</strong> to its list of students</p></blockquote>
+
+<p>That&#8217;s it !! If renaming of <code>Participation</code> to <code>ClazzParticipation</code>
+is required, the changes required is the same as the above hybrid
+approach.</p>
+
+<h2>Summing Up</h2>
+
+<p>How do you know u are doing DOP or OOP ? I guess if you are
+doing good OOP,</p>
+
+<blockquote><p>the code should be so simple that it just reads :)</p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ng Tze Yang</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-10T09:06:00+08:00" pubdate  data-updated="true" >Oct 10<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/activerecord/'>activerecord</a>, <a class='category' href='/blog/categories/design/'>design</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'tybraindump';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/10/10/oop-vs-dop/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/10/10/oop-vs-dop/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR's Scoping</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/10/oop-vs-dop/">OOP vs DOP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/06/a-little-bit-of-sed-kungfu/">A Little Bit of Sed Kungfu</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux/">Installing The Unofficial Byobu in Archlinux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/05/killing-a-screen-window/">Killing a Screen Window</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Ng Tze Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+
+</body>
+</html>

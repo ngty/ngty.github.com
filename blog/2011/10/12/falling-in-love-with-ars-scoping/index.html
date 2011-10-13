@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Falling in Love With AR's Scoping - ty's brain dump</title>
+  <meta name="author" content="Ng Tze Yang">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  <link rel="canonical" href="http://ngty.github.com/blog/2011/10/12/falling-in-love-with-ars-scoping/">
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ty's brain dump" type="application/atom+xml"/>
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">ty's brain dump</a></h1>
+  
+    <h2>~ non-optimized bits & pieces</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:ngty.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Index</a></li>
+  <li><a href="/blog/archives">Archive</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Falling in Love With AR's Scoping</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-12T15:10:00+08:00" pubdate  data-updated="true" >Oct 12<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If you do activerecord, you should fall in love with scoping, as it
+can really boast ur AR-fu.</p>
+
+<p>Here&#8217;s an example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Shirt</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:owner</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Cat</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:shirts</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:owner</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:shirts</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:owner</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&#8217;s say i want to be able to retrieve doggie&#8217;s red shirts:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
+</span><span class='line'>  <span class="c1"># (blah blah)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">red_shirts</span>
+</span><span class='line'>    <span class="n">shirts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span>     <span class="c1"># all shirts</span>
+</span><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">red_shirts</span> <span class="c1"># all red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ok, what if we want to retrieve kitty&#8217;s red shirts as well ?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Cat</span>
+</span><span class='line'>  <span class="c1"># (blah blah)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">red_shirts</span>
+</span><span class='line'>    <span class="n">shirts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shirts</span>     <span class="c1"># all shirts</span>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">red_shirts</span> <span class="c1"># all red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hmmm, duplication detected, but not so bad (yet) .. how abt i
+want to retrieve all red shirts ? AR supports this via the
+<code>scope</code> declarative:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Shirt</span>
+</span><span class='line'>  <span class="c1"># (blah blah)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">scope</span> <span class="ss">:red</span><span class="p">,</span> <span class="n">where</span><span class="p">(</span><span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># * A less DSL-ish approach is to declare a class method</span>
+</span><span class='line'>  <span class="c1"># def self.red</span>
+</span><span class='line'>  <span class="c1">#   where(:color =&gt; &#39;red&#39;)</span>
+</span><span class='line'>  <span class="c1"># end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Shirt</span><span class="o">.</span><span class="n">red</span> <span class="c1"># all red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And you know what, with the new <code>Shirt.red</code>, i can throw away
+<code>Cat#red_shirts</code> &amp; <code>Dog#red_shirts</code>. If i ever want to fetch
+the red shirts of doggie &amp; kitty:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span>     <span class="c1"># all doggie&#39;s shirts</span>
+</span><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span><span class="o">.</span><span class="n">red</span> <span class="c1"># all doggie&#39;s red shirts</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shirts</span>      <span class="c1"># all kitty&#39;s shirts</span>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shirts</span><span class="o">.</span><span class="n">red</span>  <span class="c1"># all kitty&#39;s red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And to make it even sweeter, i can do the following as well:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:size</span> <span class="o">=&gt;</span> <span class="ss">:xl</span><span class="p">)</span> <span class="c1"># doggie gets a new red :xl shirt</span>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shorts</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:size</span> <span class="o">=&gt;</span> <span class="ss">:xs</span><span class="p">)</span>  <span class="c1"># kitty gets a new red :xs shirt</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Honestly, we should love AR&#8217;s scoping rite ?!</p>
+
+<p>If u have the time, take a look at the
+<a href="http://api.rubyonrails.org/classes/ActiveRecord/NamedScope/ClassMethods.html">activerecord doc</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ng Tze Yang</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-12T15:10:00+08:00" pubdate  data-updated="true" >Oct 12<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/activerecord/'>activerecord</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'tybraindump';
+  var disqus_identifier = 'http://ngty.github.com/blog/2011/10/12/falling-in-love-with-ars-scoping/';
+  var disqus_url = 'http://ngty.github.com/blog/2011/10/12/falling-in-love-with-ars-scoping/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR's Scoping</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/10/oop-vs-dop/">OOP vs DOP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/06/a-little-bit-of-sed-kungfu/">A Little Bit of Sed Kungfu</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/06/installing-the-unofficial-byobu-in-archlinux/">Installing The Unofficial Byobu in Archlinux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/05/killing-a-screen-window/">Killing a Screen Window</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Ng Tze Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+
+</body>
+</html>

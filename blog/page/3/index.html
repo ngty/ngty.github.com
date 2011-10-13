@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Module#attr_accessor &amp; Friends - ty's brain dump</title>
+  <title>ty's brain dump</title>
   <meta name="author" content="Ng Tze Yang">
   
 
@@ -16,7 +16,7 @@
 
   
   
-  <link rel="canonical" href="http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends/">
+  <link rel="canonical" href="http://ngty.github.com/blog/page/3/">
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -56,12 +56,95 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry">
-  
+      <div class="blog-index">
+
+
+
+  <article>
+    
   <header>
     
-      <h1 class="entry-title">Module#attr_accessor &amp; Friends</h1>
+      <h1 class="entry-title"><a href="/blog/2011/09/21/interactive-git-rebase-w-reword-and-fixup/">Interactive Git Rebase With Reword &amp; Fixup</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-09-21T20:32:00+08:00" pubdate  data-updated="true" >Sep 21<span>st</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It is no secret that i&#8217;m a fan of interactive git rebase. It gives me
+the power to clean up the numerous small intermediate commits that i
+did so frequently while in the course of completing a feature (or bugfix).
+In the process, i usually do quite abit of squashing, reshuffling &amp;
+rewording, such that the eventual commits i push upstream are
+well-organized &amp; each commit is meaningful to the rest of the team.</p>
+
+<p>Usually i use <code>pick</code> &amp; <code>squash</code> to achieve the compressing of different
+commits. Recently, my coworker showed me an alternative, which uses <code>reword</code>
+&amp; <code>fixup</code>.  Here&#8217;s how it can be done:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rebase -i &lt;branch></span></code></pre></td></tr></table></div></figure>
+
+
+<p>Instead of doing:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pick 6354612 WIP ~ monkey patched to fix bug#234.
+</span><span class='line'>squash 4de4f66 WIP ~ conform to recommended way of patching.
+</span><span class='line'>squash 3545b15 WIP ~ fixed incomplete removal of hackish patch.
+</span><span class='line'>squash 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Do this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>reword 6354612 WIP ~ monkey patched to fix bug#234.
+</span><span class='line'>fixup 4de4f66 WIP ~ conform to recommended way of patching.
+</span><span class='line'>fixup 3545b15 WIP ~ fixed incomplete removal of hackish patch.
+</span><span class='line'>fixup 7000cfe WIP ~ removed the no-longer-needed :rightnow tag.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Of course, the 2 approaches are different:</p>
+
+<ul>
+<li><code>reword</code> &amp; <code>fixup</code>, u get to either keep the 1st commit message,
+or rephrase it</li>
+<li><code>pick</code> &amp; <code>squash</code>, u have more choices ~ from keeping all of the
+various commit messages, to writing a brand new message</li>
+</ul>
+
+
+<p>For me, i almost always want the effect of <code>reword</code> &amp; <code>fixup</code>.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/20/module-number-attr-accessor-and-friends/">Module#attr_accessor &amp; Friends</a></h1>
     
     
       <p class="meta">
@@ -79,7 +162,7 @@
   </header>
 
 
-<div class="entry-content"><p>Have u ever find urself writing simple reader &amp; writer like this:</p>
+  <div class="entry-content"><p>Have u ever find urself writing simple reader &amp; writer like this:</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -215,68 +298,33 @@ benchmark:</p>
 It would be more significant as the number of accessors increases. Anyway,
 i&#8217;ll leave it as an exercise for the reader.</p>
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Ng Tze Yang</span></span>
-
-      
-
-
-
-
-
   
 
 
+  </article>
 
-<time datetime="2011-09-20T23:55:00+08:00" pubdate  data-updated="true" >Sep 20<span>th</span>, 2011</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
-  
-</span>
-
-
-    </p>
+<nav role="pagination">
+  <div>
     
-      <div class="sharing">
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-</div>
-
+    <a href="/blog/archives">Archive</a>
     
-  </footer>
-</article>
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</nav>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
-  var disqus_shortname = 'tybraindump';
-  var disqus_identifier = 'http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends/';
-  var disqus_url = 'http://ngty.github.com/blog/2011/09/20/module-number-attr-accessor-and-friends/';
-  //var disqus_developer = 1;
-  (function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
+    var disqus_shortname = 'tybraindump';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
 </div>
-
 <aside role=sidebar>
   
     <section>
@@ -284,7 +332,7 @@ i&#8217;ll leave it as an exercise for the reader.</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR's Scoping</a>
+        <a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR&#8217;s Scoping</a>
       </li>
     
       <li class="post">
@@ -312,7 +360,6 @@ i&#8217;ll leave it as an exercise for the reader.</p>
 
   
 </aside>
-
 
     </div>
   </div>

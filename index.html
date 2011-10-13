@@ -64,6 +64,357 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR&#8217;s Scoping</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-12T15:10:00+08:00" pubdate  data-updated="true" >Oct 12<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you do activerecord, you should fall in love with scoping, as it
+can really boast ur AR-fu.</p>
+
+<p>Here&#8217;s an example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Shirt</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:owner</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Cat</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:shirts</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:owner</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:shirts</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:owner</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&#8217;s say i want to be able to retrieve doggie&#8217;s red shirts:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
+</span><span class='line'>  <span class="c1"># (blah blah)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">red_shirts</span>
+</span><span class='line'>    <span class="n">shirts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span>     <span class="c1"># all shirts</span>
+</span><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">red_shirts</span> <span class="c1"># all red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ok, what if we want to retrieve kitty&#8217;s red shirts as well ?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Cat</span>
+</span><span class='line'>  <span class="c1"># (blah blah)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">red_shirts</span>
+</span><span class='line'>    <span class="n">shirts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shirts</span>     <span class="c1"># all shirts</span>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">red_shirts</span> <span class="c1"># all red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hmmm, duplication detected, but not so bad (yet) .. how abt i
+want to retrieve all red shirts ? AR supports this via the
+<code>scope</code> declarative:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Shirt</span>
+</span><span class='line'>  <span class="c1"># (blah blah)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">scope</span> <span class="ss">:red</span><span class="p">,</span> <span class="n">where</span><span class="p">(</span><span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># * A less DSL-ish approach is to declare a class method</span>
+</span><span class='line'>  <span class="c1"># def self.red</span>
+</span><span class='line'>  <span class="c1">#   where(:color =&gt; &#39;red&#39;)</span>
+</span><span class='line'>  <span class="c1"># end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Shirt</span><span class="o">.</span><span class="n">red</span> <span class="c1"># all red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And you know what, with the new <code>Shirt.red</code>, i can throw away
+<code>Cat#red_shirts</code> &amp; <code>Dog#red_shirts</code>. If i ever want to fetch
+the red shirts of doggie &amp; kitty:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span>     <span class="c1"># all doggie&#39;s shirts</span>
+</span><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span><span class="o">.</span><span class="n">red</span> <span class="c1"># all doggie&#39;s red shirts</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shirts</span>      <span class="c1"># all kitty&#39;s shirts</span>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shirts</span><span class="o">.</span><span class="n">red</span>  <span class="c1"># all kitty&#39;s red shirts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And to make it even sweeter, i can do the following as well:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">doggie</span><span class="o">.</span><span class="n">shirts</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:size</span> <span class="o">=&gt;</span> <span class="ss">:xl</span><span class="p">)</span> <span class="c1"># doggie gets a new red :xl shirt</span>
+</span><span class='line'><span class="n">kitty</span><span class="o">.</span><span class="n">shorts</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:size</span> <span class="o">=&gt;</span> <span class="ss">:xs</span><span class="p">)</span>  <span class="c1"># kitty gets a new red :xs shirt</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Honestly, we should love AR&#8217;s scoping rite ?!</p>
+
+<p>If u have the time, take a look at the
+<a href="http://api.rubyonrails.org/classes/ActiveRecord/NamedScope/ClassMethods.html">activerecord doc</a>.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/10/oop-vs-dop/">OOP vs DOP</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-10-10T09:06:00+08:00" pubdate  data-updated="true" >Oct 10<span>th</span>, 2011</time></p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One <a href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>
+that i come across very frequently while doing rails (&amp; activerecord)
+related work is that alot of times, people tend to do DOP
+(database oriented programming), when they should instead be doing OOP
+(object oriented programming).</p>
+
+<p>Most of the applications we write require support for:</p>
+
+<ul>
+<li>modelling our business knowledge, AND</li>
+<li>persisting the state of business entities</li>
+</ul>
+
+
+<p>In most rails apps, the above functionalities are provided by the model
+layer, which in turn is powered by the orm framework (usually activerecord).
+It is important to bear in mind the priority ~ the modelling of business
+knowledge. Persistence gets into the equation only when we want to
+persist the application&#8217;s state.</p>
+
+<blockquote><p>By placing higher priority on business modelling &amp; less on persistence,
+we better allocate our resources to tackle changes in business logic,
+abstracting &amp; minimising changes required on (or necessitated by)
+the persistence layer.</p></blockquote>
+
+<p>Let&#8217;s set the stage for the classic join-model example of students
+attending a class, &amp; how DOP &amp; OOP tackle fare against each other:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Clazz</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:participations</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:students</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:participations</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Student</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:participations</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:clazzes</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:participations</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Participation</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:clazz</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:student</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>1) The DOP Way</h2>
+
+<p>Base on the original modelling:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Participation</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:clazz</span> <span class="o">=&gt;</span> <span class="n">physics_class</span><span class="p">,</span> <span class="ss">:student</span> <span class="o">=&gt;</span> <span class="n">alice</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What if there comes a day we need to rename <code>Participation</code> to
+<code>ClazzParticipation</code> ? Besides renaming the class <code>Participation</code>,
+you also need to:</p>
+
+<ul>
+<li>change the above <code>Participation.create</code> to <code>ClazzParticipation.create</code></li>
+<li>declare the <code>:class_name</code> for <code>Student#participations</code> &amp;
+<code>Clazz#participations</code></li>
+</ul>
+
+
+<p>Changes necessitated by change in business requirements are inevitable
+in software engineering, but the above changes are unnecesssary &amp; as
+the cause comes from the persistent side, rather than the business
+side.</p>
+
+<p>Let&#8217;s improve on this DOP way by trying the hybrid approach.</p>
+
+<h2>2) The Hybrid Way</h2>
+
+<p>Using the original modelling, we do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">physics_class</span><span class="o">.</span><span class="n">participations</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:student</span> <span class="o">=&gt;</span> <span class="n">alice</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is better than the pure DOP approach. When renaming of
+<code>Participation</code> to <code>ClazzParticipation</code> is required, besides the
+obvious renaming of the class <code>Participation</code>, you just need to:</p>
+
+<ul>
+<li>declare the <code>:class_name</code> for <code>Student#participations</code> &amp;
+<code>Clazz#participations</code></li>
+</ul>
+
+
+<p>Pretty good, but bare in mind that this approach is forcing
+other engineers to be aware that:</p>
+
+<blockquote><p>in order to add <strong>alice</strong> (student) to <strong>physics_class</strong>
+(class), you create a participation for <strong>alice</strong> w.r.t
+<strong>physics_class</strong></p></blockquote>
+
+<p>Clearly, it is still very database centric. This approach misses
+the essence of OOP ~ encapsulation. It exposes &amp; forces anyone to
+be aware of:</p>
+
+<ul>
+<li>the underlying join association <code>Clazz#participations</code>, AND</li>
+<li>you have to call <code>Clazz#participations.create</code>, AND</li>
+<li>you have to pass the argument <code>:student =&gt; alice</code></li>
+</ul>
+
+
+<p>Can we make it better ?? Of couse we can, let&#8217;s try the following
+more OOP approach:</p>
+
+<h2>3) The OOP Way</h2>
+
+<p>With the original modelling,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">physics_class</span><span class="o">.</span><span class="n">students</span> <span class="o">&lt;&lt;</span> <span class="n">alice</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Read:</p>
+
+<blockquote><p>in order to add <strong>alice</strong> (student) to <strong>physics_class</strong>
+(class), you just add <strong>alice</strong> to its list of students</p></blockquote>
+
+<p>That&#8217;s it !! If renaming of <code>Participation</code> to <code>ClazzParticipation</code>
+is required, the changes required is the same as the above hybrid
+approach.</p>
+
+<h2>Summing Up</h2>
+
+<p>How do you know u are doing DOP or OOP ? I guess if you are
+doing good OOP,</p>
+
+<blockquote><p>the code should be so simple that it just reads :)</p></blockquote>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/10/06/a-little-bit-of-sed-kungfu/">A Little Bit of Sed Kungfu</a></h1>
     
     
@@ -715,227 +1066,6 @@ from <a href="http://rubybestpractices.com/">Ruby Best Practices</a>.</p>
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/28/tripping-over-method-and-local-variable/">Tripping Over Method &amp; Local Variable</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-28T23:14:00+08:00" pubdate  data-updated="true" >Sep 28<span>th</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>As you know, ruby always tries hard to get out of the programmer&#8217;s
-way most of the time. One good example is when u invoke a method
-that doesn&#8217;t require any argument:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">mm</span>
-</span><span class='line'>  <span class="ss">:ok</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">mm</span>   <span class="c1"># &gt;&gt; :ok</span>
-</span><span class='line'><span class="n">mm</span><span class="p">()</span> <span class="c1"># &gt;&gt; :ok</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Almost always, to invoke <code>mm</code>, <code>mm</code> is preferred over <code>mm()</code>, doing
-it the <code>mm()</code> way is so un-rubyish. Yet this flexibility tripped us
-over today, consider the following:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span>
-</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>
-</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>When we ran the above spec, we get
-<code>undefined method 'macho' for "alien":String (NoMethodError)</code> .. why ??</p>
-
-<p>Here&#8217;s our intended behaviour:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines alien()</span>
-</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines robot()</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span>  <span class="c1"># set local var thing</span>
-</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>      <span class="c1"># defines subject() to return thing()</span>
-</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span>  <span class="c1"># defines thing() to return the evaluate alien() or robot()</span>
-</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This is what happened instead:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">Thing</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:alien</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;alien&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines alien()</span>
-</span><span class='line'>  <span class="n">let</span><span class="p">(</span><span class="ss">:robot</span><span class="p">)</span> <span class="p">{</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:thing</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s1">&#39;robot&#39;</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># defines robot()</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="sx">%w{alien robot}</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span> <span class="c1"># set local var thing</span>
-</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;as </span><span class="si">#{</span><span class="n">thing</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">thing</span> <span class="p">}</span>     <span class="c1"># ** defines subject() to return the local var thing</span>
-</span><span class='line'>      <span class="n">let</span><span class="p">(</span><span class="ss">:thing</span><span class="p">)</span> <span class="p">{</span> <span class="nb">send</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># ** defines thing() which never gets invoked</span>
-</span><span class='line'>      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_macho</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To fix the problem, we can either:</p>
-
-<ul>
-<li><p>avoid confusing names by renaming the local variable <code>thing</code> to
-<code>_thing</code> &amp; amend all its intended usage accordingly (which include
-<code>let(:thing) { send(thing) }</code> to <code>let(:thing) { send(_thing) }</code>), OR</p></li>
-<li><p>be explicte when invoking method by rewriting
-<code>let(:subject) { thing }</code> as <code>let(:subject) { thing() }</code></p></li>
-</ul>
-
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/26/argumenterror-is-simple/">ArgumentError Is Simple</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-
-  
-
-
-
-<time datetime="2011-09-26T23:10:00+08:00" pubdate  data-updated="true" >Sep 26<span>th</span>, 2011</time></p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>What do you get if u invoke a method with the wrong number of arguments ??
-It throws in ur face <code>ArgumentError</code> &#8230; it doesn&#8217;t try to be polite, you
-are at fault since you are the one that breaches the contract !!</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">m0</span>
-</span><span class='line'>  <span class="ss">:ok</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">m0</span>    <span class="c1"># &gt;&gt; :ok</span>
-</span><span class='line'><span class="n">m0</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># &gt;&gt; (...) wrong number of arguments (1 for 0) (ArgumentError)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It tells you that it is expecting <code>0 argument</code>, yet you have passed it
-<code>1 argument</code>. Let&#8217;s have another one:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">m2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</span><span class='line'>  <span class="ss">:ok</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">m2</span>       <span class="c1"># &gt;&gt; (...) wrong number of arguments (0 for 2) (ArgumentError)</span>
-</span><span class='line'><span class="n">m2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># &gt;&gt; (...) wrong number of arguments (1 for 2) (ArgumentError)</span>
-</span><span class='line'><span class="n">m2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># &gt;&gt; :ok</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Pretty readable rite ?</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -964,6 +1094,14 @@ are at fault since you are the one that breaches the contract !!</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/10/12/falling-in-love-with-ars-scoping/">Falling in Love With AR&#8217;s Scoping</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/10/oop-vs-dop/">OOP vs DOP</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/10/06/a-little-bit-of-sed-kungfu/">A Little Bit of Sed Kungfu</a>
       </li>
     
@@ -973,14 +1111,6 @@ are at fault since you are the one that breaches the contract !!</p>
     
       <li class="post">
         <a href="/blog/2011/10/05/killing-a-screen-window/">Killing a Screen Window</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/05/removing-untracked-files-with-git-clean/">Removing Untracked Files With Git Clean</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/03/quick-commenting-of-ruby-code/">Quick Commenting of Ruby Code</a>
       </li>
     
   </ul>
